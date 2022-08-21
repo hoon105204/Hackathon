@@ -17,5 +17,10 @@ public class KurlyApplication {
 	public String gohome() {
 		return "home";
 	}
+	
+	@RequestMapping("/workList")
+	public String goworkList() {
+		return "workList";
+	}
 
 }
