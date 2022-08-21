@@ -206,7 +206,7 @@ header {
 	    <a href="/login">작업목록</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
-	    <a href="/map/user">작업목록</a>
+	    <a href="/workList">작업목록</a>
 	    </c:if>
 	    </div>
 	    
