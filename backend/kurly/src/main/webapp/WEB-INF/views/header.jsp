@@ -166,13 +166,13 @@ header {
 	  <div class="nav-top">
 	  
 	  	<c:if test="${EMP_ID != null }">
-	      <h5 id="user-nm">${user_Nm } 님</h5>
+	      <h5 id="user-nm">${EMP_NM } 님</h5>
 		  <input type="hidden" name="in_Code" value="${EMP_ID }">
 		</c:if>
 		
 	    
 	    <c:if test="${EMP_ID == null }">
-			<a href="/login" class="nav-top-text">로그인 / 회원가입</a>
+			<a href="/login/page" class="nav-top-text">로그인 / 회원가입</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
 			 <a href="/login/logout" class="nav-top-text">로그아웃</a>
@@ -193,65 +193,42 @@ header {
 	    <div class="nav-menu-all">
 	    
 	    <div class="nav-menu" id="n-menu1">
-	    <c:if test="${user_Code == null }">
+	    <c:if test="${EMP_ID == null }">
 	    <a href="/login">물류관리</a>
 	    </c:if>
-	    <c:if test="${user_Code != null }">
+	    <c:if test="${EMP_ID != null }">
 	    <a href="/map/user">물류관리</a>
 	    </c:if>
 	    </div>
 	    
    	    <div class="nav-menu" id="n-menu2">
-	    <c:if test="${user_Code == null }">
-	    <a href="/workList">작업목록</a>
+	    <c:if test="${EMP_ID == null }">
+	    <a href="/login">작업목록</a>
 	    </c:if>
-	    <c:if test="${user_Code != null }">
-	    <a href="/workList">작업목록</a>
+	    <c:if test="${EMP_ID != null }">
+	    <a href="/map/user">작업목록</a>
 	    </c:if>
 	    </div>
 	    
 	    <div class="nav-menu" id="n-menu3">
-	    <c:if test="${user_Code == null }">
+	    <c:if test="${EMP_ID == null }">
 	    <a href="/login">단말기등록</a>
 	    </c:if>
-	    <c:if test="${user_Code != null }">
+	    <c:if test="${EMP_ID != null }">
 	    <a href="/board/requestform">단말기등록</a>
 	    </c:if>
 	    </div>
 	    
 	    <div class="nav-menu" id="n-menu4">
-	    <c:if test="${user_Code == null }">
+	    <c:if test="${EMP_ID == null }">
 	    <a href="/login">AR화면</a>
 	    </c:if>
-	    <c:if test="${user_Code != null }">
+	    <c:if test="${EMP_ID != null }">
 	    <a href="/mypage/history">AR화면</a>
 	    </c:if>
 	    </div>
 	    
-	    <div class="nav-menu" id="n-menu5">
-	    <c:if test="${user_Code == null }">
-	    <a href="/login">메뉴5</a>
-	    </c:if>
-	    <c:if test="${user_Code != null }">
-	    <a href="/point/use">메뉴5</a>
-	    </c:if>
-	    </div>
-	    
-	    <div class="nav-menu" id="n-menu6">
-	    <c:if test="${user_Code == null }">
-	    <a href="/login">메뉴6</a>
-	    </c:if>
-	    
-	    <c:if test="${user_Code != null }">
-	    <a href="/chat/list?room_UCode1=${user_Code}">메뉴6</a>
-	    </c:if>
-	    </div>
-	    
-	    <div class="nav-menu" id="n-menu7">
-	    <c:if test="${user_Code == 1}">
-	    <a href="/license/list">메뉴7</a>
-	    </c:if>
-	    </div>
+
 	    
 	    </div>
 	    
