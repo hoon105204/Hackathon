@@ -175,6 +175,7 @@ header {
 			<a href="/login/page" class="nav-top-text">로그인 / 회원가입</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
+			 <a href="/login/page/logout" class="nav-top-text">로그아웃</a>
 			 <a href="/login/logout" class="nav-top-text">로그아웃</a>
 			 <input type="hidden" name="in_Code" value="${EMP_ID }">
 		</c:if>
