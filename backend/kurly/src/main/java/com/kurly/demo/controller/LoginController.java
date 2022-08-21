@@ -30,7 +30,7 @@ public class LoginController {
 	public String loginUser(HttpServletRequest request, Model model, TB_CM_EMP dto, RedirectAttributes rttr) {
 		
 		HttpSession session = request.getSession(); // 세션 생성
-		TB_CM_EMP user = loginService.userID(dto);
+		TB_CM_EMP user = loginService.checkID(dto);
 		if(user == null) {
 			int result = 0;
 			rttr.addFlashAttribute("result", result);
@@ -63,6 +63,8 @@ public class LoginController {
 		loginService.insertUser(dto);
 		return "redirect:/login/page";
 	}
+	
+	
 	
 
 	

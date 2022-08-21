@@ -10,7 +10,7 @@ import com.kurly.demo.dto.TB_CM_EMP;
 public interface LoginMapper {
 	
 	@Select(" SELECT * FROM TB_CM_EMP WHERE EMP_ID = #{EMP_ID} AND EMP_PW = #{EMP_PW} ")
-	public TB_CM_EMP userID(TB_CM_EMP dto);
+	public TB_CM_EMP checkID(TB_CM_EMP dto);
 	
 	@Insert(" INSERT INTO TB_CM_EMP(EMP_ID,EMP_NM,EMP_PW) VALUES(#{EMP_ID}, #{EMP_NM}, #{EMP_PW}) ")
 	public int insertUser(TB_CM_EMP dto);

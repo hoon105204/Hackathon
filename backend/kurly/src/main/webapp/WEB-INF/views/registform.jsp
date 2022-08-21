@@ -90,6 +90,15 @@ input[type="text"] {
 	border-bottom:1px solid #757575;
 }
 
+input[type="password"] {
+	font-size:15px;
+	padding:5px 5px 5px 0px;
+	display:block;
+	width:300px;
+	border:none;
+	border-bottom:1px solid #757575;
+}
+
 .ongoing21-content-bottom {
 	text-align: center;
 }
@@ -124,7 +133,11 @@ input[type="text"] {
 						</tr>
 						<tr>
 							<th><label class="required">비밀번호</label></th>
-							<td><input type="text" placeholder="비밀번호" name="EMP_PW" required="required"></td>
+							<td><input type="password" placeholder="비밀번호" name="EMP_PW" required="required" id="pw1"></td>
+						</tr>
+						<tr>
+							<th><label class="required">비밀번호 확인</label></th>
+							<td><input type="password" placeholder="비밀번호" required="required" id="pw2"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -143,8 +156,15 @@ input[type="text"] {
 </body>
 <script type="text/javascript">
 	function loading() {
-		alert("가입된 아이디로 로그인 하세요!");
-		return true;
+		var pw1 = $("#pw1").val();
+		var pw2 = $("#pw2").val();
+		if(pw1 == pw2) {
+			alert("가입된 아이디로 로그인 하세요!");
+			return true;			
+		} else {
+			alert("비밀번호를 확인하세요");
+			return false;
+		}
 	}
 </script>
 </html>

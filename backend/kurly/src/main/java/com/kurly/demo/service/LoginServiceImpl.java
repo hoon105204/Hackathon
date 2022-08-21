@@ -13,8 +13,8 @@ public class LoginServiceImpl implements LoginService{
 	LoginMapper loginMapper;
 
 	@Override
-	public TB_CM_EMP userID(TB_CM_EMP dto) {
-		return loginMapper.userID(dto);
+	public TB_CM_EMP checkID(TB_CM_EMP dto) {
+		return loginMapper.checkID(dto);
 	}
 
 	@Override
