@@ -172,10 +172,10 @@ header {
 		
 	    
 	    <c:if test="${EMP_ID == null }">
-			<a href="/login/page" class="nav-top-text">로그인 / 회원가입</a>
+			<a href="/login/page/page" class="nav-top-text">로그인 / 회원가입</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
-			 <a href="/login/logout" class="nav-top-text">로그아웃</a>
+			 <a href="/login/page/logout" class="nav-top-text">로그아웃</a>
 			 <input type="hidden" name="in_Code" value="${EMP_ID }">
 		</c:if>
 	  </div>
@@ -194,7 +194,7 @@ header {
 	    
 	    <div class="nav-menu" id="n-menu1">
 	    <c:if test="${EMP_ID == null }">
-	    <a href="/login">물류관리</a>
+	    <a href="/login/page">물류관리</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
 	    <a href="/map/user">물류관리</a>
@@ -203,7 +203,7 @@ header {
 	    
    	    <div class="nav-menu" id="n-menu2">
 	    <c:if test="${EMP_ID == null }">
-	    <a href="/login">작업목록</a>
+	    <a href="/login/page">작업목록</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
 	    <a href="/workList">작업목록</a>
@@ -212,7 +212,7 @@ header {
 	    
 	    <div class="nav-menu" id="n-menu3">
 	    <c:if test="${EMP_ID == null }">
-	    <a href="/login">단말기등록</a>
+	    <a href="/login/page">단말기등록</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
 	    <a href="/board/requestform">단말기등록</a>
@@ -221,7 +221,7 @@ header {
 	    
 	    <div class="nav-menu" id="n-menu4">
 	    <c:if test="${EMP_ID == null }">
-	    <a href="/login">AR화면</a>
+	    <a href="/login/page">AR화면</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
 	    <a href="/mypage/history">AR화면</a>
