@@ -232,7 +232,7 @@ header {
 	    
 	    </div>
 	    
-	    <a href="#" class="nav-toggleBtn"><i class="fa-solid fa-bars"></i></a>
+	    <a href="#" class="nav-toggleBtn"><i cla6ss="fa-solid fa-bars"></i></a>
 	    
 	  </div>
 	 </nav>
