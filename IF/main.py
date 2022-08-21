@@ -4,7 +4,7 @@ import tkinter.messagebox
 import webbrowser
 from tkinter.ttk import *
 from tkinter import *
-from PIL import ImageTk
+from PIL import ImageTk, Image
 ## from picamera import PiCamera
 from time import sleep
 
@@ -52,8 +52,18 @@ class CameraImage():
         self.canvas = Canvas(self.root, width = 400, height = 250, background='white')
         self.canvas.place(x=10, y=10)
 
+#        imgObj = PhotoImage(file=r"D:\Kurly\IF\kurly.bmp")
+#        imgLabel = Label(self.root, image=imgObj)
+#        imgLabel.pack()
+
+#        img_path = Image.open('D:\Kurly\IF\kurly.bmp')
+#        imgObj = ImageTk.PhotoImage(img_path, master=self.canvas)
+#        imgLabel = Label(self.root, image=imgObj)
+#        imgLabel.pack()
+
         self.worklist = dict()
         self.currentIdx = 0
+        self.JudgeTable = None
 
         self.OpenCamera()
 
@@ -94,6 +104,9 @@ class CameraImage():
         else:
             self.currentIdx += 1
 
+    def SendResult(self):
+        return self.JudgeTable
+
 class GlassControlPanel():
     def __init__(self):
         self.app = None
@@ -114,38 +127,50 @@ class GlassControlPanel():
         btn_1.grid(column=3, row=1)
         btn_2 = Button(self.root, text="[송신] 세부작업완료시", command=self.FinishWork)
         btn_2.grid(column=3, row=2)
-        btn_3 = Button(self.root, text="[송신] AR판정결과")
+        btn_3 = Button(self.root, text="[송신] AR판정결과", command=self.JudgeResult)
         btn_3.grid(column=3, row=3)
 
         self.root.mainloop()
 
     def openCamera(self):
-        self.app = CameraImage()
+        if self.app == None:
+            self.app = CameraImage()
+        else:
+            tkinter.messagebox.showerror(title="Error", message="There is On-line Camera Session")
 
     def CloseCamera(self):
         if self.app == None:
-            tkinter.messagebox.showerror(title="Error", message="There are no Camera Display")
+            tkinter.messagebox.showerror(title="Error", message="There is no Camera Display")
         else:
             self.app.CloseCamera()
 
     def RequestWorkConfirm(self):
         if self.app == None:
-            tkinter.messagebox.showerror(title="Error", message="There are no Camera Display")
+            tkinter.messagebox.showerror(title="Error", message="There is no Camera Display")
         else:
             Info = GrabInfo()
             self.app.GetWorkDetail(Info)
 
     def StartWork(self):
         if self.app == None:
-            tkinter.messagebox.showerror(title="Error", message="There are no Camera Display")
+            tkinter.messagebox.showerror(title="Error", message="There is no Camera Display")
         else:
             self.app.StartWork()
 
     def FinishWork(self):
         if self.app == None:
-            tkinter.messagebox.showerror(title="Error", message="There are no Camera Display")
+            tkinter.messagebox.showerror(title="Error", message="There is no Camera Display")
         else:
             self.app.FinishWork()
+
+    def JudgeResult(self):
+        if self.app == None:
+            tkinter.messagebox.showerror(title="Error", message="There is no Camera Display")
+        else:
+            Info = self.app.SendResult()
+            if Info == None:
+                tkinter.messagebox.showerror(title="Error", message="There is no Judgement to send")
+
 
 def main():
     ctrlpanel = GlassControlPanel()
