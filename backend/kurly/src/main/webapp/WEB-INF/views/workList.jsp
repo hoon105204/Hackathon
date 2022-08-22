@@ -16,7 +16,6 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <style type="text/css">
 
-
 .inquiry-notice {
 	height: 352px;
 	padding-left: 20px;
@@ -117,6 +116,7 @@
 		overflow-x: scroll;
 		overflow-y: scroll;
 		border-top: 1px solid #d0d0d0;
+		margin-bottom: 15px;
 	}
 	#tblBody1 {
 		/*
@@ -196,6 +196,49 @@
 
 /* 표 css 끝 */
 
+.box {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	margin-top: 40px;
+	margin-bottom: 80px;
+	width: 1000px;
+}
+
+.cell {
+	padding-bottom: 13px;
+}
+
+button {
+	background-color: #151515;
+	border-radius: 4px;
+	border-style: none;
+	box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+	box-sizing: border-box;
+	color: #fff;
+	font-size: 15px;
+	font-weight: 100;
+	font-family: inherit;
+	letter-spacing: .25px;
+	line-height: normal;
+	padding: 5px;
+	transition: background box-shadow 280ms ease;
+	margin-right: 5px;
+}
+
+button:hover {
+	background: #fff;
+	color: #151515;
+}
+
+.clicked_menu{
+	color: ;border-color: #4285f4;
+	color: #4285f4;
+	background: #fff;
+   }
+
+
 </style>
 </head>
 <body>
@@ -204,12 +247,13 @@
 		<input class="inputstyle" type="hidden" name="WRK_STAT">
 	</div>
 	<div id="wrap">
+		<div class="box">
 		<div class="section">
 		 	<div class="section_btn_status1">
-		 	  <button class="section_btn_status11" id="btn_status_all">전체</button>
-		 	  <button class="section_btn_status11" id="btn_status_100">작업대기</button>
-		 	  <button class="section_btn_status11" id="btn_status_200">작업중</button>
-		 	  <button class="section_btn_status11" id="btn_status_300">작업완료</button>
+		 	  <button class="section_btn_status11 menu" id="btn_status_all">전체</button>
+		 	  <button class="section_btn_status11 menu" id="btn_status_100">작업대기</button>
+		 	  <button class="section_btn_status11 menu" id="btn_status_200">작업중</button>
+		 	  <button class="section_btn_status11 menu" id="btn_status_300">작업완료</button>
 		    </div>
 		</div>	   
 		
@@ -277,10 +321,10 @@
 
 		<div class="section">
 		 	<div class="section_btn_statusDtl">
-		 	  <button id="btn_statusDtl_all">전체</button>
-		 	  <button id="btn_statusDtl_100">작업대기</button>
-		 	  <button id="btn_statusDtl_200">작업중</button>
-		 	  <button id="btn_statusDtl_300">작업완료</button>
+		 	  <button id="btn_statusDtl_all" class="menu2">전체</button>
+		 	  <button id="btn_statusDtl_100" class="menu2">작업대기</button>
+		 	  <button id="btn_statusDtl_200" class="menu2">작업중</button>
+		 	  <button id="btn_statusDtl_300" class="menu2">작업완료</button>
 		    </div>
 				
 		</div>	   
@@ -340,12 +384,29 @@
 		    </div>
 		</div>
 		
-		
+		</div>
 	</div>
   <%@ include file="footer.jsp" %>
 </body>
 
 <script type="text/javascript">
+
+
+	$('.menu').each(function(index){
+		$(this).attr('menu-index', index);
+	}).click(function(){
+		var index = $(this).attr('menu-index');
+		$('.menu[menu-index=' + index + ']').addClass('clicked_menu');
+		$('.menu[menu-index!=' + index + ']').removeClass('clicked_menu');
+	});
+	
+	$('.menu2').each(function(index){
+		$(this).attr('menu-index', index);
+	}).click(function(){
+		var index = $(this).attr('menu-index');
+		$('.menu2[menu-index=' + index + ']').addClass('clicked_menu');
+		$('.menu2[menu-index!=' + index + ']').removeClass('clicked_menu');
+	});
 
 
 $(document).ready(function() {
@@ -408,13 +469,13 @@ function fn_buildTable1(data) {
     table.innerHTML = "";
        for (var i=0; i<data.length; i++) { 
             row = "<tr>"+
-	        		"<td id=table1_"+ "NO "+ i +"><center>" + Number(i+1) + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_STAT "+ i +"><center>" + data[i].wrk_STAT + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_ID "+ i +"><center>" + data[i].wrk_ID + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_PRODUCE "+ i +"><center>" + data[i].wrk_PRODUCE + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_DUEDATE "+ i +"><center>" + data[i].wrk_DUEDATE + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_START "+ i +"><center>" + data[i].wrk_START + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_END "+ i +"><center>" + data[i].wrk_END + "</center></td>"+
+	        		"<td id=table1_"+ "NO "+ i +" class='cell'><center>" + Number(i+1) + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_STAT "+ i +" class='cell'><center>" + data[i].wrk_STAT + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_ID "+ i +" class='cell'><center>" + data[i].wrk_ID + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_PRODUCE "+ i +" class='cell'><center>" + data[i].wrk_PRODUCE + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_DUEDATE "+ i +" class='cell'><center>" + data[i].wrk_DUEDATE + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_START "+ i +" class='cell'><center>" + data[i].wrk_START + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_END "+ i +" class='cell'><center>" + data[i].wrk_END + "</center></td>"+
 	        	   "</tr>" + "\n" ;
             table.innerHTML += row;   
 		}
@@ -456,14 +517,14 @@ function fn_buildTable2(data) {
     var table = document.getElementById("table2") 
        for (var i=0; i<data.length; i++) { 
             row = "<tr>"+
-	        		"<td>${data[i].a}</td>"+
-	        		"<td>${data[i].b}</td>"+
-	        		"<td>" + data[i].c + "</td>"+
-	        		"<td>" + data[i].d + "</td>"+
-	        		"<td>" + data[i].e + "</td>"+
-	        		"<td>" + data[i].f + "</td>"+
-	        		"<td>" + data[i].g + "</td>"+
-	        		"<td>" + data[i].h + "</td>"+
+	        		"<td class='cell'>${data[i].a}</td>"+
+	        		"<td class='cell'>${data[i].b}</td>"+
+	        		"<td class='cell'>" + data[i].c + "</td>"+
+	        		"<td class='cell'>" + data[i].d + "</td>"+
+	        		"<td class='cell'>" + data[i].e + "</td>"+
+	        		"<td class='cell'>" + data[i].f + "</td>"+
+	        		"<td class='cell'>" + data[i].g + "</td>"+
+	        		"<td class='cell'>" + data[i].h + "</td>"+
 	        	   "</tr>" + "\n" ;
             table.innerHTML += row;   
 		}

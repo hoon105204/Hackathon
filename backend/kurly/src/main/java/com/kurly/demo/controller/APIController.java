@@ -34,15 +34,19 @@ public class APIController {
 		// 단말기 아이디로 단말기 정보 가져오기
 		TB_LO_DEVICE devInfo = apiService.selectDEV(id);
 		jsObj.put("TB_LO_DEVICE", devInfo);
+		
 		// 단말기 아이디로 가장 최근 이용자 아이디 가져오기
 		String user_id = apiService.selectUSE_ID(id);
-		jsObj.put("user_id", user_id);
-		System.out.println(user_id);
-		user_id = "user4";
+		
 		// 이용자 아이디로 작업하나 가져오기
 		TB_LO_WORK lo_work= apiService.selectWork(user_id);
-		
 		jsObj.put("TB_LO_WORK", lo_work);
+		
+		// 작업 아이디로 작업세부 리스트 가져오기
+		String wrk_id = lo_work.getWRK_ID();
+		
+		
+		
 //		TB_CM_EMP tmp = new TB_CM_EMP();
 //		tmp.setEMP_ID("1234");
 //		tmp.setEMP_NM("콩이");
