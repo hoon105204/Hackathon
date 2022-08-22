@@ -22,4 +22,9 @@ public class LoginServiceImpl implements LoginService{
 		return loginMapper.insertUser(dto);
 	}
 
+	@Override
+	public int idChk(String user_Id) {
+		return loginMapper.idChk(user_Id);
+	}
+
 }

@@ -1,0 +1,74 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>단말기 상세</title>
+<link rel="icon" href="/images/mainhome/favicon.png">
+<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<script>
+	$(function($){
+	    $("#check-table").DataTable();
+	});
+</script>
+<style type="text/css">
+#wrap {
+    min-height: 100vh;
+    min-width: 500px;
+    overflow:hidden;
+    height: 100%;
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+
+.box {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	width: 550px;
+}
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<div class="box">
+			<h3>${list[0].DEV_ID } 이용기록</h3><br>
+			<table id="check-table" class="table table-bordered">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>사용자</th>
+						<th>상태</th>
+						<th>대여</th>
+						<th>반납</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${list }" var="hist" varStatus="status">
+						<tr>
+							<td>${status.index + 1}</td>
+							<td>${hist.EMP_ID }</td>
+							
+							<c:if test="${hist.USE_STAT eq '이용완료'}">
+							<td>${hist.USE_STAT }</td>
+							</c:if>
+							<c:if test="${hist.USE_STAT eq '이용중'}">
+							<td style="color : orange;">${hist.USE_STAT}</td>
+							</c:if>
+							
+							<td>${hist.USE_START }</td>
+							<td>${hist.USE_END }</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>		
+		</div>
+	</div>
+</body>
+</html>
