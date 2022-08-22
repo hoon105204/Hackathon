@@ -40,4 +40,9 @@ public class DeviceServiceImpl implements DeviceService{
 		return deviceMapper.returnDevice(dto);
 	}
 
+	@Override
+	public int insertHist(TB_LO_USING dto) {
+		return deviceMapper.insertHist(dto);
+	}
+
 }

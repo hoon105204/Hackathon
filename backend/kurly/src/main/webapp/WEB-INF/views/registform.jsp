@@ -160,8 +160,8 @@ input[type="password"] {
 							<td>
 								<input type="text" placeholder="사번" name="EMP_ID" required="required" id="id_input">
 								<input class="regist-button" type="button" id="id_chk" value="중복 확인">
-								<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
-								<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
+								<span class="id_input_re_1">가입 가능한 사번입니다.</span>
+								<span class="id_input_re_2">등록된 사번이 이미 존재합니다.</span>
 								<span class="id_input_re_3">중복확인을 해주세요</span>
 							</td>
 						</tr>
@@ -193,19 +193,19 @@ input[type="password"] {
 	<%@ include file="footer.jsp"%>
 </body>
 <script type="text/javascript">
-	var idCheck = false;	// 아이디 중복 검사
+	var idCheck = false;	// 사번 중복 검사
 
 	function loading() {
 		var pw1 = $("#pw1").val();
 		var pw2 = $("#pw2").val();
 		
 		if(!idCheck) {
-			alert("아이디 중복확인을 확인하세요!");
+			alert("사번 중복확인을 확인하세요!");
 			return false;
 		}
 		
 		if(pw1 == pw2) {
-			alert("가입된 아이디로 로그인 하세요!");
+			alert("가입된 사번으로 로그인 하세요!");
 			return true;			
 		} else {
 			alert("비밀번호를 확인하세요");
@@ -214,8 +214,8 @@ input[type="password"] {
 	}
 	
 
-	//아이디 중복검사
-	$('#id_chk').on("click", function(){ // 아이디 입력마다 값을 확인
+	//사번 중복검사
+	$('#id_chk').on("click", function(){ // 사번 입력마다 값을 확인
 		$('.id_input_re_3').css('display','none');
 		let user_Id = $('#id_input').val();
 		console.log(user_Id);

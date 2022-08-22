@@ -2,6 +2,7 @@ package com.kurly.demo.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -29,5 +30,9 @@ public interface DeviceMapper {
 	// TB_LO_USING 이용상태 이용완료로 변경 및 반납일시 처리
 	@Update(" UPDATE TB_LO_USING SET USE_STAT='이용완료', USE_END=NOW() WHERE USE_ID=#{USE_ID} ")
 	public int returnDevice(TB_LO_USING dto);
+	
+	// TB_LO_USING 랜탈시 데이터 추가
+	@Insert(" INSERT INTO TB_LO_USING VALUES(#{USE_ID}, #{EMP_ID}, #{DEV_ID}, '이용중', NOW(), NULL) ")
+	public int insertHist(TB_LO_USING dto);
 	
 }

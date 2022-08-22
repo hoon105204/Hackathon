@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kurly.demo.component.GetTimeTool;
 import com.kurly.demo.dto.TB_LO_DEVICE;
 import com.kurly.demo.dto.TB_LO_USING;
 import com.kurly.demo.service.DeviceService;
@@ -22,6 +22,9 @@ public class DeviceController {
 	
 	@Autowired
 	DeviceService deviceService;
+	
+	@Autowired
+	GetTimeTool getTimeTool;
 	
 	@GetMapping("/page")
 	public String goDevice(Model model, HttpSession session) {
@@ -64,8 +67,22 @@ public class DeviceController {
 	}
 	
 	@GetMapping("/rental")
-	public String rentalDevice(TB_LO_DEVICE dto) {
-		System.out.println(dto.getDEV_ID());
+	public String rentalDevice(TB_LO_USING dto, HttpSession session) {
+		String dev_id = dto.getDEV_ID();
+		
+		// TB_LO_DEVICE 단말기상태 이용중으로 변경
+		TB_LO_DEVICE tmp = new TB_LO_DEVICE();
+		tmp.setDEV_ID(dev_id);
+		tmp.setDEV_STAT("이용중");
+		deviceService.updateStatus(tmp);
+		
+		// TB_LO_USING 데이터 추가
+		String time = getTimeTool.timeToString();
+		String user_id = session.getAttribute("EMP_ID").toString();
+		dto.setEMP_ID(user_id);
+		dto.setUSE_ID("DH" + time);
+		deviceService.insertHist(dto);
+		
 		return "redirect:/device/page";
 	}
 	

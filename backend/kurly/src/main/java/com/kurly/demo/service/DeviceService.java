@@ -11,5 +11,6 @@ public interface DeviceService {
 	public TB_LO_USING selectInUse(String EMP_ID);
 	public int updateStatus(TB_LO_DEVICE dto);
 	public int returnDevice(TB_LO_USING dto);
+	public int insertHist(TB_LO_USING dto);
 
 }
