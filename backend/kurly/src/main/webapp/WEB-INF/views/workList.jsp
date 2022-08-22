@@ -206,18 +206,18 @@
 	<div id="wrap">
 		<div class="section">
 		 	<div class="section_btn_status1">
-		 	  <button class="section_btn_status11" id="btn_status_all" onclick="fn_click_Status1(this.id)">전체</button>
-		 	  <button class="section_btn_status11" id="btn_status_100" onclick="fn_click_Status1(this.id)">작업대기</button>
-		 	  <button class="section_btn_status11" id="btn_status_200" onclick="fn_click_Status1(this.id)">작업중</button>
-		 	  <button class="section_btn_status11" id="btn_status_300" onclick="fn_click_Status1(this.id)">작업완료</button>
+		 	  <button class="section_btn_status11" id="btn_status_all">전체</button>
+		 	  <button class="section_btn_status11" id="btn_status_100">작업대기</button>
+		 	  <button class="section_btn_status11" id="btn_status_200">작업중</button>
+		 	  <button class="section_btn_status11" id="btn_status_300">작업완료</button>
 		    </div>
 		</div>	   
 		
-		<div class="section">
+<!-- 		<div class="section">
 		 	<div class="section_btn_wrkproduce">
 		 	  <button id="btn_wrkproduce_all">전체</button>
 		    </div>
-		</div>	    
+		</div>	     -->
 		
 		<div class="section">
 		 	<div class="grid_wrkLot">
@@ -274,13 +274,7 @@
 				</table>
 		    </div>
 		</div>
-	</div>
-	
-	
-	<div id="wrap">
-	  <form id="form1">
-	  	<input id="form_Search1" type="hidden">
-	  </form>
+
 		<div class="section">
 		 	<div class="section_btn_statusDtl">
 		 	  <button id="btn_statusDtl_all">전체</button>
@@ -382,20 +376,19 @@ $(document).ready(function() {
         $.ajax({
             url : '/wrk/wrksearch1',
             type : 'POST',
-            data : $("#form_Search1").serialize(),
+            data : {WRK_STAT : pWrkStatus},
+        	// data : $("#form_Search1").serialize(),
             success : function(obj) {
                 console.log(obj);
                 var data = JSON.parse(obj);
                 console.log(data.WrkList); //배열로 가져옴
                 
-                buildTable1(data.WrkList);
-
-                $("#table1").html(htmlString);
+                fn_buildTable1(data.WrkList); // 화면 배치
                 },
-                error : function(e) {
+            error : function(e) {
                 console.log(e);
-                }
-    		});
+            }
+    	});
 	});
        	
 });
@@ -404,38 +397,30 @@ $(document).ready(function() {
 fn_click_Status1 = function(pId){
 	// 이것만 보라색
 	// 나머지 검정색 
-}
+};
 
-/* var myArray1 = [
-    {
-        "NO" : "1", "WRK_STAT" : "작업완료", "WRK_ID" : "202208212050110001", "WRK_PRODUCE" : "2022/08/21 20:50:11", "WRK_DUEDATE" : "2022/08/21 20:50:11", "WRK_START" : "2022/08/21 21:00:00", "WRK_END" : "2022/08/21 21:12:31"
-    }, 
-    {
-        "NO" : "2", "WRK_STAT" : "작업중", "WRK_ID" : "202208212050120002", "WRK_PRODUCE" : "2022/08/21 20:50:12", "WRK_DUEDATE" : "2022/08/21 20:50:11", "WRK_START" : "2022/08/21 21:00:00", "WRK_END" : ""
-    }, 
-    {
-        "NO" : "3", "WRK_STAT" : "작업대기", "WRK_ID" : "202208212050120003", "WRK_PRODUCE" : "2022/08/21 20:50:12", "WRK_DUEDATE" : "2022/08/21 20:50:11", "WRK_START" : "", "WRK_END" : ""
-    },
- ] */
 
-/* function buildTable1(data) {
-	var row = ""
-    var table = document.getElementById("table1") 
+function fn_buildTable1(data) {
+	// console.log("fn_buildTable1 start!");
+	
+	var row = "";
+    var table = document.getElementById("table1") ;
+    table.innerHTML = "";
        for (var i=0; i<data.length; i++) { 
             row = "<tr>"+
-	        		"<td id=table1_"+ "NO "+ i +">" + data[i].NO + "</td>"+
-	        		"<td id=table1_"+ "WRK_STAT "+ i +">" + data[i].WRK_STAT + "</td>"+
-	        		"<td id=table1_"+ "WRK_ID "+ i +">" + data[i].WRK_ID + "</td>"+
-	        		"<td id=table1_"+ "WRK_PRODUCE "+ i +">" + data[i].WRK_PRODUCE + "</td>"+
-	        		"<td id=table1_"+ "WRK_DUEDATE "+ i +">" + data[i].WRK_DUEDATE + "</td>"+
-	        		"<td id=table1_"+ "WRK_START "+ i +">" + data[i].WRK_START + "</td>"+
-	        		"<td id=table1_"+ "WRK_END "+ i +">" + data[i].WRK_END + "</td>"+
+	        		"<td id=table1_"+ "NO "+ i +"><center>" + Number(i+1) + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_STAT "+ i +"><center>" + data[i].wrk_STAT + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_ID "+ i +"><center>" + data[i].wrk_ID + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_PRODUCE "+ i +"><center>" + data[i].wrk_PRODUCE + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_DUEDATE "+ i +"><center>" + data[i].wrk_DUEDATE + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_START "+ i +"><center>" + data[i].wrk_START + "</center></td>"+
+	        		"<td id=table1_"+ "WRK_END "+ i +"><center>" + data[i].wrk_END + "</center></td>"+
 	        	   "</tr>" + "\n" ;
             table.innerHTML += row;   
 		}
         
-
-} */
+       // console.log("fn_buildTable1 end!");
+}
 
 var myArray2 = [
     {
@@ -466,7 +451,7 @@ var myArray2 = [
     },
  ]
 
-function buildTable2(data) {
+function fn_buildTable2(data) {
 	var row = ""
     var table = document.getElementById("table2") 
        for (var i=0; i<data.length; i++) { 
@@ -486,9 +471,7 @@ function buildTable2(data) {
 
 }
 
-
-/* buildTable1(myArray1); */
-buildTable2(myArray2);
+fn_buildTable2(myArray2);
 
 
 </script>

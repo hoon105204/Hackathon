@@ -48,6 +48,11 @@ public class WrkController {
 		String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hashMap);
 		System.out.println("json String =============================================" + json);
 		
+		/*
+		 * if (json.length() == 0) { return "fail"; } else { return "success"; // 조회 성공
+		 * };
+		 */
+		
 		return json;
 	}
 
