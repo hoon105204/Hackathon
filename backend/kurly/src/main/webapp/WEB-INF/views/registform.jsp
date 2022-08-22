@@ -88,6 +88,7 @@ input[type="text"] {
 	width:300px;
 	border:none;
 	border-bottom:1px solid #757575;
+    float: left;
 }
 
 input[type="password"] {
@@ -102,6 +103,37 @@ input[type="password"] {
 .ongoing21-content-bottom {
 	text-align: center;
 }
+
+.regist-button{
+	border: 1px solid #d3d3d3;
+    color: rgba(34,34,34,.8);
+    line-height: 30px;
+    border-radius: 12px;
+    font-size: 14px;
+    letter-spacing: -.14px;
+    background-color: #fff;
+}
+
+.regist-button:hover{
+	background-color: #f6f6f6;
+	color:black;
+}
+
+#id_chk {
+	float: right;
+	width: 70px;
+}
+
+.id_input_re_1 {
+	color : green;
+	display : none;
+}
+
+.id_input_re_2, .id_input_re_3 {
+	color : red;
+	display : none;
+}
+
 </style>
 </head>
 <body>
@@ -125,7 +157,13 @@ input[type="password"] {
 					<tbody>
 						<tr>
 							<th><label class="required">사번</label></th>
-							<td><input type="text" placeholder="사번" name="EMP_ID" required="required"></td>
+							<td>
+								<input type="text" placeholder="사번" name="EMP_ID" required="required" id="id_input">
+								<input class="regist-button" type="button" id="id_chk" value="중복 확인">
+								<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
+								<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
+								<span class="id_input_re_3">중복확인을 해주세요</span>
+							</td>
 						</tr>
 						<tr>
 							<th><label class="required">이름</label></th>
@@ -155,9 +193,17 @@ input[type="password"] {
 	<%@ include file="footer.jsp"%>
 </body>
 <script type="text/javascript">
+	var idCheck = false;	// 아이디 중복 검사
+
 	function loading() {
 		var pw1 = $("#pw1").val();
 		var pw2 = $("#pw2").val();
+		
+		if(!idCheck) {
+			alert("아이디 중복확인을 확인하세요!");
+			return false;
+		}
+		
 		if(pw1 == pw2) {
 			alert("가입된 아이디로 로그인 하세요!");
 			return true;			
@@ -166,5 +212,37 @@ input[type="password"] {
 			return false;
 		}
 	}
+	
+
+	//아이디 중복검사
+	$('#id_chk').on("click", function(){ // 아이디 입력마다 값을 확인
+		$('.id_input_re_3').css('display','none');
+		let user_Id = $('#id_input').val();
+		console.log(user_Id);
+		let warnMsg = $(".id_form_check"); 
+		 $('.final_id_ck').css('display', 'none');
+		let data = {user_Id : user_Id}
+		
+		$.ajax({
+			type : "post",
+			url : "/login/idChk",
+			data : data,
+			success : function(result){
+				if(result != 'fail'){
+					$('.id_input_re_1').css("display","inline-block");
+					$('.id_input_re_2').css("display", "none");
+					idCheck = true;
+				} else {
+					$('.id_input_re_2').css("display","inline-block");
+					$('.id_input_re_1').css("display", "none");
+					$('#id_input2').val(null);
+					idCheck = false;
+				}
+			}
+		})
+
+	});// function 종료
+
+	
 </script>
 </html>

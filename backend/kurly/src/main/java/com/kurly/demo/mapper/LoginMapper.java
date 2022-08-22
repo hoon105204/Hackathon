@@ -14,4 +14,8 @@ public interface LoginMapper {
 	
 	@Insert(" INSERT INTO TB_CM_EMP(EMP_ID,EMP_NM,EMP_PW) VALUES(#{EMP_ID}, #{EMP_NM}, #{EMP_PW}) ")
 	public int insertUser(TB_CM_EMP dto);
+	
+	@Select(" SELECT count(*) FROM TB_CM_EMP WHERE EMP_ID = #{user_Id} ")
+	public int idChk(String user_Id);
+	
 }
