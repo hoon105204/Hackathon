@@ -27,7 +27,7 @@ public class WrkController {
 	@Autowired
 	WrkService WrkService;
 
-	@RequestMapping(value="/wrksearch1.do")
+	@PostMapping(value="/wrksearch1")
 	@ResponseBody
 	public String getBoardListSearch(TB_LO_WORK dto) throws JsonProcessingException {
 		System.out.println("작업 Lot 리스트 검색 처리");
@@ -47,6 +47,11 @@ public class WrkController {
 		
 		String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hashMap);
 		System.out.println("json String =============================================" + json);
+		
+		/*
+		 * if (json.length() == 0) { return "fail"; } else { return "success"; // 조회 성공
+		 * };
+		 */
 		
 		return json;
 	}
