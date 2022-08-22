@@ -205,11 +205,11 @@
 	</div>
 	<div id="wrap">
 		<div class="section">
-		 	<div class="section_btn_status">
-		 	  <button id="btn_status_all" onclick="fn_Search1(this.id)">전체</button>
-		 	  <button id="btn_status_100" onclick="fn_Search1(this.id)">작업대기</button>
-		 	  <button id="btn_status_200" onclick="fn_Search1(this.id)">작업중</button>
-		 	  <button id="btn_status_300" onclick="fn_Search1(this.id)">작업완료</button>
+		 	<div class="section_btn_status1">
+		 	  <button class="section_btn_status11" id="btn_status_all" onclick="fn_click_Status1(this.id)">전체</button>
+		 	  <button class="section_btn_status11" id="btn_status_100" onclick="fn_click_Status1(this.id)">작업대기</button>
+		 	  <button class="section_btn_status11" id="btn_status_200" onclick="fn_click_Status1(this.id)">작업중</button>
+		 	  <button class="section_btn_status11" id="btn_status_300" onclick="fn_click_Status1(this.id)">작업완료</button>
 		    </div>
 		</div>	   
 		
@@ -278,8 +278,8 @@
 	
 	
 	<div id="wrap">
-	  <form id="form_Search1">
-	  	<input id="" type="hidden">
+	  <form id="form1">
+	  	<input id="form_Search1" type="hidden">
 	  </form>
 		<div class="section">
 		 	<div class="section_btn_statusDtl">
@@ -353,53 +353,60 @@
 
 <script type="text/javascript">
 
+
 $(document).ready(function() {
-    $("#fn_Search1").click(function() {
+    $(".section_btn_status11").click(function() {
     	
-    	alert();
+    	var pId = $(this).attr("id");
     	
-	   	var pWrkStatus = "";
-	   	
-	   	switch(pId){
-	   	case "btn_status_all":
-	   		pWrkStatus = "%";
-	   		break;
-	   	case "btn_status_100":
-	   		pWrkStatus = "100";
-	   		break;
-	   	case "btn_status_200":
-	   		pWrkStatus = "200";
-	   		break;
-	   	case "btn_status_300":
-	   		pWrkStatus = "300";
-	   		break;
-	   	default:
-	   		pWrkStatus = "%";
-	   	
-	   	}
-	   	
-    	
-      $.ajax({
-        url : '/wrk/wrksearch1',
-        type : 'POST',
-        data : $("#form_Search1").serialize(),
-        success : function(obj) {
-            console.log(obj);
-            var data = JSON.parse(obj);
-            console.log(data.WrkList); //배열로 가져옴
-            
-            buildTable1(data.WrkList);
+       	var pWrkStatus = "";
+       	
+       	switch(pId){
+       	case "btn_status_all":
+       		pWrkStatus = "%";
+       		break;
+       	case "btn_status_100":
+       		pWrkStatus = "100";
+       		break;
+       	case "btn_status_200":
+       		pWrkStatus = "200";
+       		break;
+       	case "btn_status_300":
+       		pWrkStatus = "300";
+       		break;
+       	default:
+       		pWrkStatus = "%";
+       	
+       	};
+       	
+        $.ajax({
+            url : '/wrk/wrksearch1',
+            type : 'POST',
+            data : $("#form_Search1").serialize(),
+            success : function(obj) {
+                console.log(obj);
+                var data = JSON.parse(obj);
+                console.log(data.WrkList); //배열로 가져옴
+                
+                buildTable1(data.WrkList);
 
-            $("#table1").html(htmlString);
-            },
-            error : function(e) {
-            console.log(e);
-            }
-          });
-        });
-      });
+                $("#table1").html(htmlString);
+                },
+                error : function(e) {
+                console.log(e);
+                }
+    		});
+	});
+       	
+});
 
-var myArray1 = [
+
+fn_click_Status1 = function(pId){
+	// 이것만 보라색
+	// 나머지 검정색 
+}
+
+/* var myArray1 = [
     {
         "NO" : "1", "WRK_STAT" : "작업완료", "WRK_ID" : "202208212050110001", "WRK_PRODUCE" : "2022/08/21 20:50:11", "WRK_DUEDATE" : "2022/08/21 20:50:11", "WRK_START" : "2022/08/21 21:00:00", "WRK_END" : "2022/08/21 21:12:31"
     }, 
@@ -409,9 +416,9 @@ var myArray1 = [
     {
         "NO" : "3", "WRK_STAT" : "작업대기", "WRK_ID" : "202208212050120003", "WRK_PRODUCE" : "2022/08/21 20:50:12", "WRK_DUEDATE" : "2022/08/21 20:50:11", "WRK_START" : "", "WRK_END" : ""
     },
- ]
+ ] */
 
-function buildTable1(data) {
+/* function buildTable1(data) {
 	var row = ""
     var table = document.getElementById("table1") 
        for (var i=0; i<data.length; i++) { 
@@ -428,7 +435,7 @@ function buildTable1(data) {
 		}
         
 
-}
+} */
 
 var myArray2 = [
     {
@@ -480,7 +487,7 @@ function buildTable2(data) {
 }
 
 
-buildTable1(myArray1);
+/* buildTable1(myArray1); */
 buildTable2(myArray2);
 
 
