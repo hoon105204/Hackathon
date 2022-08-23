@@ -79,6 +79,7 @@ public class APIController {
 	}
 	
 	@PostMapping(value="/button3")
+	@ResponseBody
 	public void button3(@RequestBody APIdto dto) {
 		String dtl_id = dto.getDtl_id();
 		
@@ -94,6 +95,7 @@ public class APIController {
 	}
 	
 	@PostMapping(value="/button4")
+	@ResponseBody
 	public TB_CM_EMP button4() {
 		TB_CM_EMP tmp = new TB_CM_EMP();
 		tmp.setEMP_ID("1234");

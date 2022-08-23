@@ -67,7 +67,7 @@ public interface APIMapper {
 	public int ongoWRK(String WRK_ID);
 	
 	// 작업lot 종료
-	@Update(" UPDATE TB_LO_WORKDTL SET WRK_STAT=300, WRK_END=NOW() WHERE WRK_ID=#{WRK_ID} ")
+	@Update(" UPDATE TB_LO_WORK SET WRK_STAT=300, WRK_END=NOW() WHERE WRK_ID=#{WRK_ID} ")
 	public int complWRK(String WRK_ID);
 	
 }
