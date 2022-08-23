@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kurly.demo.dto.TB_LO_WORK;
+import com.kurly.demo.dto.TB_LO_WORKDTL;
 import com.kurly.demo.mapper.WrkMapper;
 
 @Service
@@ -19,4 +20,8 @@ public class WrkServiceImpl implements WrkService{
 		return WrkMapper.getWrkList(dto);
 	}
 
+	@Override
+	public List<TB_LO_WORKDTL> getWrkDtlList(TB_LO_WORKDTL dto) {
+		return WrkMapper.getWrkDtlList(dto);
+	}
 }

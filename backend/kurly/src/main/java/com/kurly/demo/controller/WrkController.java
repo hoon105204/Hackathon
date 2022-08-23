@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kurly.demo.service.WrkService;
 import com.kurly.demo.dto.TB_LO_WORK;
+import com.kurly.demo.dto.TB_LO_WORKDTL;
 
 @Controller
 @RequestMapping("/wrk")
@@ -30,7 +31,7 @@ public class WrkController {
 	@PostMapping(value="/wrksearch1")
 	@ResponseBody
 	public String getBoardListSearch(TB_LO_WORK dto) throws JsonProcessingException {
-		System.out.println("작업 Lot 리스트 검색 처리");
+		System.out.println("작업 리스트 검색 처리");
 		
 		//자바에서 JSON 객체로 변환해주는 라이브러리
 		//1. jackson.Objectmapper (우리가 사용할 것)
@@ -48,13 +49,31 @@ public class WrkController {
 		String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hashMap);
 		System.out.println("json String =============================================" + json);
 		
-		/*
-		 * if (json.length() == 0) { return "fail"; } else { return "success"; // 조회 성공
-		 * };
-		 */
+		return json;
+	}
+
+	@PostMapping(value="/wrksearch2")
+	@ResponseBody
+	public String getBoardListSearch(TB_LO_WORKDTL dto) throws JsonProcessingException {
+		System.out.println("작업 세부 리스트 검색 처리");
+		
+		//자바에서 JSON 객체로 변환해주는 라이브러리
+		//1. jackson.Objectmapper (우리가 사용할 것)
+		//2. JsonView
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		// System.out.println("searchKeyword====" + dto.getSearchKeyword());
+		
+		//Null check
+		/* */
+		
+		List<TB_LO_WORKDTL> WrkDtlList = WrkService.getWrkDtlList(dto);
+		hashMap.put("WrkDtlList", WrkDtlList);
+		
+		String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hashMap);
+		System.out.println("json String =============================================" + json);
 		
 		return json;
 	}
 
-	
 }

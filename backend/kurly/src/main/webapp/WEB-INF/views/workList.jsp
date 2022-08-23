@@ -250,10 +250,10 @@ button:hover {
 		<div class="box">
 		<div class="section">
 		 	<div class="section_btn_status1">
-		 	  <button class="section_btn_status11 menu" id="btn_status_all">전체</button>
-		 	  <button class="section_btn_status11 menu" id="btn_status_100">작업대기</button>
-		 	  <button class="section_btn_status11 menu" id="btn_status_200">작업중</button>
-		 	  <button class="section_btn_status11 menu" id="btn_status_300">작업완료</button>
+		 	  <button class="menu" id="btn_status_all">전체</button>
+		 	  <button class="menu" id="btn_status_100">작업대기</button>
+		 	  <button class="menu" id="btn_status_200">작업중</button>
+		 	  <button class="menu" id="btn_status_300">작업완료</button>
 		    </div>
 		</div>	   
 		
@@ -304,27 +304,21 @@ button:hover {
 										<col style="width:120px;" align="center"/>
 									</colgroup>
 									<tbody id = table1>
-									</tbody>
-<%-- 									<c:forEach items="${list1}" var = "list">
-										<tr>
-
-										</tr>
-									</c:forEach> --%>
-									
+									</tbody>									
 								</table>
 							</div>
 						</td>
 					</tr>
 				</table>
 		    </div>
-		</div>
-
-		<div class="section">
-		 	<div class="section_btn_statusDtl">
-		 	  <button id="btn_statusDtl_all" class="menu2">전체</button>
-		 	  <button id="btn_statusDtl_100" class="menu2">작업대기</button>
-		 	  <button id="btn_statusDtl_200" class="menu2">작업중</button>
-		 	  <button id="btn_statusDtl_300" class="menu2">작업완료</button>
+		</div> 
+		
+		<div class="section">    
+		 	<div class="section_btn_status2">
+		 	  <button class="menu2" id="btn_status_dtl_all">전체</button>
+		 	  <button class="menu2" id="btn_status_dtl_10">작업대기</button>
+		 	  <button class="menu2" id="btn_status_dtl_20">작업중</button>
+		 	  <button class="menu2" id="btn_status_dtl_30">작업완료</button>
 		    </div>
 				
 		</div>	   
@@ -340,7 +334,6 @@ button:hover {
 										<col style="width:40px;" align="center" />
 										<col style="width:100px;" align="center"/>
 										<col style="width:150px;" align="center"/>
-										<col style="width:150px;" align="center"/>
 										<col style="width:100px;" align="center"/>
 										<col style="width:40px;" align="center"/>
 										<col style="width:120px;" align="center"/>
@@ -349,10 +342,9 @@ button:hover {
 									</colgroup>
 									<tr>
 										<td class="title">NO</td>
-										<td class="title">작업 상태</td>
-										<td class="title">작업 Lot ID</td>
-										<td class="title">작업 ID</td>
-										<td class="title">제품 ID</td>
+										<td class="title">작업세부 상태</td>
+										<td class="title">작업세부 ID</td>
+										<td class="title">제품 종류</td>
 										<td class="title">수량</td>
 										<td class="title">세부작업 시작일시</td>
 										<td class="title">세부작업 완료일시</td>
@@ -365,7 +357,6 @@ button:hover {
 									<colgroup>
 										<col style="width:40px;" align="center" />
 										<col style="width:100px;" align="center"/>
-										<col style="width:150px;" align="center"/>
 										<col style="width:150px;" align="center"/>
 										<col style="width:100px;" align="center"/>
 										<col style="width:40px;" align="center"/>
@@ -410,7 +401,8 @@ button:hover {
 
 
 $(document).ready(function() {
-    $(".section_btn_status11").click(function() {
+	
+    $(".menu").click(function() {
     	
     	var pId = $(this).attr("id");
     	
@@ -451,14 +443,51 @@ $(document).ready(function() {
             }
     	});
 	});
+    
+
+    $(".menu2").click(function() {
+    	
+    	var pId2 = $(this).attr("id");
+    	
+       	var pWrkStatus2 = "";
+       	
+       	switch(pId2){
+       	case "btn_status_dtl_all":
+       		pWrkStatus2 = "%";
+       		break;
+       	case "btn_status_dtl_10":
+       		pWrkStatus2 = "10";
+       		break;
+       	case "btn_status_dtl_20":
+       		pWrkStatus2 = "20";
+       		break;
+       	case "btn_status_dtl_30":
+       		pWrkStatus2 = "30";
+       		break;
+       	default:
+       		pWrkStatus2 = "%";
+       	
+       	};
+       	
+        $.ajax({
+            url : '/wrk/wrksearch2',
+            type : 'POST',
+            data : {DTL_STAT : pWrkStatus2},
+        	// data : $("#form_Search2").serialize(),
+            success : function(obj) {
+                console.log(obj);
+                var data = JSON.parse(obj);
+                console.log(data.WrkDtlList); //배열로 가져옴
+                
+                fn_buildTable2(data.WrkDtlList); // 화면 배치
+                },
+            error : function(e) {
+                console.log(e);
+            }
+    	});
+	});
        	
 });
-
-
-fn_click_Status1 = function(pId){
-	// 이것만 보라색
-	// 나머지 검정색 
-};
 
 
 function fn_buildTable1(data) {
@@ -483,57 +512,31 @@ function fn_buildTable1(data) {
        // console.log("fn_buildTable1 end!");
 }
 
-var myArray2 = [
-    {
-        "a" : "1", "b" : "작업완료", "c" : "202208212050110001", "d" : "20220821205011000101", "e" : "ABCDEFG", "f" : "3", "g" : "2022/08/21 21:00:00", "h" : "2022/08/21 21:00:01"
-    }, 
-    {
-        "a" : "2", "b" : "작업완료", "c" : "202208212050110001", "d" : "20220821205011000102", "e" : "AB15EFG", "f" : "22", "g" : "2022/08/21 21:01:12", "h" : "2022/08/21 21:02:33"
-    }, 
-    {
-        "a" : "3", "b" : "작업완료", "c" : "202208212050110001", "d" : "20220821205011000103", "e" : "LKCIE41", "f" : "4", "g" : "2022/08/21 21:02:34", "h" : "2022/08/21 21:04:51"
-    },
-    
-    {
-        "a" : "4", "b" : "작업완료", "c" : "202208212050120002", "d" : "20220821205011000201", "e" : "FF74V2S", "f" : "2", "g" : "2022/08/21 21:00:00", "h" : "2022/08/21 21:05:01"
-    }, 
-    {
-        "a" : "5", "b" : "작업중", "c" : "202208212050120002", "d" : "20220821205011000202", "e" : "AXXR3SD", "f" : "4", "g" : "2022/08/21 21:06:57", "h" : ""
-    },
-    
-    {
-        "a" : "6", "b" : "작업대기", "c" : "202208212050120002", "d" : "20220821205011000301", "e" : "ACSAD42", "f" : "1", "g" : "", "h" : ""
-    }, 
-    {
-        "a" : "7", "b" : "작업대기", "c" : "202208212050120002", "d" : "20220821205011000302", "e" : "ORPP2G1", "f" : "3", "g" : "", "h" : ""
-    }, 
-    {
-        "a" : "8", "b" : "작업대기", "c" : "202208212050120002", "d" : "20220821205011000303", "e" : "DROVKO2", "f" : "1", "g" : "", "h" : ""
-    },
- ]
 
 function fn_buildTable2(data) {
-	var row = ""
-    var table = document.getElementById("table2") 
+
+	// console.log("fn_buildTable2 start!");
+	
+	var row = "";
+    var table = document.getElementById("table2") ;
+    table.innerHTML = "";
        for (var i=0; i<data.length; i++) { 
             row = "<tr>"+
-	        		"<td class='cell'>${data[i].a}</td>"+
-	        		"<td class='cell'>${data[i].b}</td>"+
-	        		"<td class='cell'>" + data[i].c + "</td>"+
-	        		"<td class='cell'>" + data[i].d + "</td>"+
-	        		"<td class='cell'>" + data[i].e + "</td>"+
-	        		"<td class='cell'>" + data[i].f + "</td>"+
-	        		"<td class='cell'>" + data[i].g + "</td>"+
-	        		"<td class='cell'>" + data[i].h + "</td>"+
+	        		"<td id=table2_"+ "NO "+ i +" class='cell'><center>" + Number(i+1) + "</center></td>"+
+	        		"<td id=table2_"+ "DTL_STAT "+ i +" class='cell'><center>" + data[i].dtl_STAT + "</center></td>"+
+	        		"<td id=table2_"+ "DTL_ID "+ i +" class='cell'><center>" + data[i].dtl_ID + "</center></td>"+
+	        		"<td id=table2_"+ "PROD_ID "+ i +" class='cell'><center>" + data[i].prod_ID + "</center></td>"+
+	        		"<td id=table2_"+ "DTL_NUMB"+ i +" class='cell'><center>" + data[i].dtl_NUMB + "</center></td>"+
+	        		"<td id=table2_"+ "DTL_START"+ i +" class='cell'><center>" + data[i].dtl_START + "</center></td>"+
+	        		"<td id=table2_"+ "DTL_END"+ i +" class='cell'><center>" + data[i].dtl_END + "</center></td>"+
 	        	   "</tr>" + "\n" ;
             table.innerHTML += row;   
 		}
         
-
+       // console.log("fn_buildTable2 end!");
+	
+	
 }
-
-fn_buildTable2(myArray2);
-
 
 </script>
 </html>
