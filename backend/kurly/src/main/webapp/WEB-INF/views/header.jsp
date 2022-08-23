@@ -224,7 +224,7 @@ header {
 	    <a href="/login/page">AR화면</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
-	    <a onclick="openAR()">AR화면</a>
+	    <a href="javascript:void(0);" onclick="openAR()">AR화면</a>
 	    </c:if>
 	    </div>
 	    
@@ -249,8 +249,8 @@ header {
 	})
 	
 	function openAR() {
-		var url = "http://211.106.17.120:9496/?action=stream";
-		var options = 'top=10, left=10, width=1000, height=600, status=no, menubar=no, toolbar=no';
+		var url = "/arcam";
+		var options = 'top=10, left=10, width=1000, height=400, status=no, menubar=no, toolbar=no';
 		window.open(url, 'AR', options);
 	}
 

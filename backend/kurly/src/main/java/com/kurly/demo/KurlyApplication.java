@@ -22,5 +22,10 @@ public class KurlyApplication {
 	public String goworkList() {
 		return "workList";
 	}
+	
+	@RequestMapping("/arcam")
+	public String goarcam() {
+		return "arcam";
+	}
 
 }
