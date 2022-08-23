@@ -55,11 +55,11 @@ public interface APIMapper {
 	public TB_LO_STOCK selectposition(String PROD_ID, int DTL_NUMB);
 	
 	// 세부작업 진행중으로 상태 변경
-	@Update(" UPDATE TB_LO_WORKDTL SET DTL_STAT=200, DTL_START=NOW() WHERE DTL_ID=#{DTL_ID} ")
+	@Update(" UPDATE TB_LO_WORKDTL SET DTL_STAT=20, DTL_START=NOW() WHERE DTL_ID=#{DTL_ID} ")
 	public int ongoDTL(String DTL_ID);
 	
 	// 세부작업 완료로 상태 변경
-	@Update(" UPDATE TB_LO_WORKDTL SET DTL_STAT=300, DTL_END=NOW() WHERE DTL_ID=#{DTL_ID} ")
+	@Update(" UPDATE TB_LO_WORKDTL SET DTL_STAT=30, DTL_END=NOW() WHERE DTL_ID=#{DTL_ID} ")
 	public int complDTL(String DTL_ID);
 	
 	// 작업lot 시작

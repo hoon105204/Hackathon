@@ -43,15 +43,21 @@ public class APIController {
 
 		// 이용자 아이디로 작업하나 가져오기
 		TB_LO_WORK lo_work= apiService.selectWork(user_id);
+		
 		jsObj.put("TB_LO_WORK", lo_work);
 		
 		// 작업 아이디로 작업세부 리스트 가져오기
-		String wrk_id = lo_work.getWRK_ID();
-		List<TB_LO_WORKDTL> listDTL = apiService.selectDTL(wrk_id);
-		jsObj.put("TB_LO_WORKDTL", listDTL);
-		
-		// 세부리스트로 작업할 장소 가져오기
-		jsObj.put("location", apiService.selectposition(listDTL));
+		try {
+			String wrk_id = lo_work.getWRK_ID();
+			List<TB_LO_WORKDTL> listDTL = apiService.selectDTL(wrk_id);
+			jsObj.put("TB_LO_WORKDTL", listDTL);
+			
+			// 세부리스트로 작업할 장소 가져오기
+			jsObj.put("location", apiService.selectposition(listDTL));
+			
+		} catch (Exception e) {
+			
+		}
 
 		return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
 	}
