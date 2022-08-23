@@ -10,37 +10,22 @@ import requests
 from time import sleep
 import json
 
-### 카메라 이미지 구현 ###
-
-
-#######################
-
 TRANSCOLOUR = 'gray'
 url = "http://54.180.171.70:8787/api/button"
 
-#- (정보요청) 버튼0 : [송수신] 작업확인 요청 ⇒ API0호출
-#    - param : 처음여부, 비정상여부
-#    - return : 현재작업lot, 작업세부정보, 제품위치정보, 제품id, 작업완료기한
-#- (작업시작) 버튼1 : [송신] 세부작업시작시 ⇒ API1호출
-#    - param : 작업세부id, 제품id, 작업시작시간, 작업시작위치
-#    - return : void
-#- (작업완료) 버튼2 : [송신] 세부작업완료시 ⇒ API2호출
-#    - param : 작업세부id, 제품id, 작업완료시간, 작업완료위치
-#    - return : void
-#- (검수버튼) 버튼3 : [송신] (옵션) AR판정결과 ⇒ API3호출
-#    - param : (검수작업id), 판정일시, 판정input, 판정결과, 판정품id
-#    - return : void
+barcode = ["237088620509893", "920765599842067",
+           "977459811004164", "803170803284142",
+           "344988208311735", "109202095302418",
+           "494304811204068", "548340147302383",
+           "586729475334176", "692675856146625"]
 
-def GrabInfo():
-    Infodict = dict()
+bar = ["237088620509893", "920765599842067"]
 
-    Infodict["WorkID"] = "20220820-0001"
-    Infodict["DetailID"] = ["20220820-0001001", "20220820-0001002", "20220820-0001003"]
-    Infodict["ItemLoc"] = ["AB030531", "AB030532", "AB030533"]
-    Infodict["ItemCode"] = ["HC001-E", "HC001-F", "HC001-G"]
-#   Infodict["ItemID"] = "FPAAAAA"
-
-    return Infodict
+code = ["237088620509893", "237088620509894", "237088620509896", "920765599842067", "920765599842068", "920765599842060",
+        "977459811004164", "977459811004165", "977459811004166", "803170803284142", "803170803284143", "803170803284144",
+        "344988208311735", "344988208311736", "344988208311737", "109202095302418", "109202095302419", "109202095302417",
+        "494304811204068", "494304811204069", "494304811204061", "548340147302383", "548340147302384", "548340147302385",
+        "586729475334176", "586729475334177", "692675856146625"]
 
 class CameraImage():
     def __init__(self):
@@ -65,6 +50,7 @@ class CameraImage():
 
         self.worklist = dict()
         self.currentIdx = 0
+        self.currentStatus = True
         self.JudgeTable = None
 
         self.OpenCamera()
@@ -77,14 +63,7 @@ class CameraImage():
         self.canvas.create_text(70, 120, text="세부작업ID : ", fill='white', font=('Helvetica 15 bold'))
         self.canvas.create_text(60, 150, text="제품위치 : ", fill='white', font=('Helvetica 15 bold'))
         self.canvas.create_text(60, 180, text="제품코드 : ", fill='white', font=('Helvetica 15 bold'))
-        self.canvas.create_text(50, 210, text="제품ID : ", fill='white', font=('Helvetica 15 bold'))
-
-#        if False:
-#            self.canvas.create_text(220, 30, text="일치", fill='purple', font=('Helvetica 15 bold'))
-#            self.canvas.create_text(190, 210, text=Info["ItemID"], fill='purple', font=('Helvetica 15 bold'))
-#        else:
-#            self.canvas.create_text(220, 30, text="불일치", fill='red', font=('Helvetica 15 bold'))
-#            self.canvas.create_text(190, 210, text="Invalid", fill='red', font=('Helvetica 15 bold'))
+        self.canvas.create_text(70, 210, text="제품 Name : ", fill='white', font=('Helvetica 15 bold'))
 
     def GetLoc(self, ItemCode):
         loc_dict = self.worklist['location']
@@ -96,12 +75,23 @@ class CameraImage():
         self.root.destroy()
 
     def GetWorkDetail(self, Info):
+        self.currentStatus = True
         self.worklist = Info
         self.currentIdx = 0
         WorkID = self.worklist["TB_LO_WORK"]["wrk_ID"]
         self.canvas.create_text(220, 90, text=WorkID, fill='white', font=('Helvetica 15 bold'))
 
+        self.canvas.delete('label')
+        self.canvas.delete('result')
+
     def StartWork(self):
+        if self.currentStatus == False:
+            tkinter.messagebox.showerror(title="Error", message="Current Work is not done yet!")
+            return
+
+        self.currentStatus = False
+
+        self.canvas.delete('result')
         self.canvas.delete('label')
         if self.currentIdx == len(self.worklist["TB_LO_WORKDTL"]):
             tkinter.messagebox.showerror(title="Error", message="No more work left")
@@ -124,6 +114,10 @@ class CameraImage():
             print("button2 : " + str(response))
 
     def FinishWork(self):
+        if self.currentStatus == False:
+            tkinter.messagebox.showerror(title="Error", message="Current Work is not done yet!")
+            return
+
         DetailID = self.worklist["TB_LO_WORKDTL"][self.currentIdx]["DTL_ID"]
         WorkID = self.worklist["TB_LO_WORK"]["wrk_ID"]
 
@@ -136,6 +130,34 @@ class CameraImage():
         data = {"dtl_id":DetailID, "wrk_id":WorkID, "dtl_ord": order}
         response = requests.post(button3, json=data)
         print("button3 : " + str(response))
+
+    def DetectBarcode(self):
+        if self.currentStatus == True:
+            tkinter.messagebox.showerror(title="Error", message="Already Found Right Item")
+            return
+
+        idx = random.randrange(2)
+        codeInfo = bar[idx]
+
+        data = {'barcode': codeInfo}
+        button4 = url + "4"
+        response = requests.post(button4, json=data)
+        print("button4 : " + str(response))
+
+        Info = json.loads(response.text)
+        ProdID = Info["PROD_ID"]
+        ItemCode = self.worklist["TB_LO_WORKDTL"][self.currentIdx]["PROD_ID"]
+
+        self.canvas.delete('result')
+        if ProdID == ItemCode:
+            ItemName = self.worklist["TB_LO_WORKDTL"][self.currentIdx]["PROD_NM"]
+            self.canvas.create_text(220, 30, text="일치", fill='purple', font=('Helvetica 15 bold'), tags='result')
+            self.canvas.create_text(220, 210, text=ItemName, fill='purple', font=('Helvetica 15 bold'), tags='result')
+            self.currentStatus = True
+        else:
+            self.canvas.create_text(220, 30, text="불일치", fill='red', font=('Helvetica 15 bold'), tags='result')
+            self.canvas.create_text(220, 210, text="Invalid", fill='red', font=('Helvetica 15 bold'), tags='result')
+
 
     def SendResult(self):
         return self.JudgeTable
@@ -164,6 +186,9 @@ class GlassControlPanel():
         btn_3 = Button(self.root, text="[송신] AR판정결과", command=self.JudgeResult)
         btn_3.grid(column=3, row=3)
 
+        barcode_read = Button(self.root, text="바코드 인식", command=self.DetectBarcode)
+        barcode_read.grid(column=5, row=0)
+
         self.root.mainloop()
 
     def openCamera(self):
@@ -178,13 +203,19 @@ class GlassControlPanel():
         else:
             self.app.CloseCamera()
 
+    def DetectBarcode(self):
+        if self.app == None:
+            tkinter.messagebox.showerror(title="Error", message="There is no Camera Display")
+        else:
+            self.app.DetectBarcode()
+
     def RequestWorkConfirm(self):
         if self.app == None:
             tkinter.messagebox.showerror(title="Error", message="There is no Camera Display")
         else:
             button1 = url + "1"
 
-            data = {'dvc_id': 'DV0001'}
+            data = {'dvc_id': 'DV0004'}
             RequestWork = requests.post(button1, json=data)
 
             self.Info = json.loads(RequestWork.text)
@@ -216,5 +247,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
