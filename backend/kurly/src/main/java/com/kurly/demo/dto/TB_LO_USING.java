@@ -1,19 +1,16 @@
 package com.kurly.demo.dto;
 
-import java.time.LocalDateTime;
-
 public class TB_LO_USING {
 	private String USE_ID;
 	private String EMP_ID;
 	private String DEV_ID;
 	private String USE_STAT;
-	private LocalDateTime USE_START;
-	private LocalDateTime USE_END;
+	private String USE_START;
+	private String USE_END;
 	public TB_LO_USING() {
 		super();
 	}
-	public TB_LO_USING(String uSE_ID, String eMP_ID, String dEV_ID, String uSE_STAT, LocalDateTime uSE_START,
-			LocalDateTime uSE_END) {
+	public TB_LO_USING(String uSE_ID, String eMP_ID, String dEV_ID, String uSE_STAT, String uSE_START, String uSE_END) {
 		super();
 		USE_ID = uSE_ID;
 		EMP_ID = eMP_ID;
@@ -46,16 +43,16 @@ public class TB_LO_USING {
 	public void setUSE_STAT(String uSE_STAT) {
 		USE_STAT = uSE_STAT;
 	}
-	public LocalDateTime getUSE_START() {
+	public String getUSE_START() {
 		return USE_START;
 	}
-	public void setUSE_START(LocalDateTime uSE_START) {
+	public void setUSE_START(String uSE_START) {
 		USE_START = uSE_START;
 	}
-	public LocalDateTime getUSE_END() {
+	public String getUSE_END() {
 		return USE_END;
 	}
-	public void setUSE_END(LocalDateTime uSE_END) {
+	public void setUSE_END(String uSE_END) {
 		USE_END = uSE_END;
 	}
 	@Override
@@ -63,5 +60,6 @@ public class TB_LO_USING {
 		return "TB_LO_USING [USE_ID=" + USE_ID + ", EMP_ID=" + EMP_ID + ", DEV_ID=" + DEV_ID + ", USE_STAT=" + USE_STAT
 				+ ", USE_START=" + USE_START + ", USE_END=" + USE_END + "]";
 	}
+	
 	
 }

@@ -2,30 +2,74 @@ package com.kurly.demo.dto;
 
 public class APIdto {
 	
-	private String id;
+	private String dvc_id;	// 장치 아이디
+	private String wrk_id;	// 작업 아이디
+	private String dtl_id;	// 세부작업 아이디
+	private String stk_id;	// 재고품 아이디
+	private String dtl_ord; // 세부작업 순서
+	
 
 	public APIdto() {
 		super();
-		// TODO Auto-generated constructor stub
+		dtl_ord = "";
 	}
 
-	public APIdto(String id) {
+	public APIdto(String dvc_id, String wrk_id, String dtl_id, String stk_id, String dtl_ord) {
 		super();
-		this.id = id;
+		this.dvc_id = dvc_id;
+		this.wrk_id = wrk_id;
+		this.dtl_id = dtl_id;
+		this.stk_id = stk_id;
+		this.dtl_ord = dtl_ord;
 	}
 
-	public String getId() {
-		return id;
+	public String getDvc_id() {
+		return dvc_id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setDvc_id(String dvc_id) {
+		this.dvc_id = dvc_id;
+	}
+
+	public String getWrk_id() {
+		return wrk_id;
+	}
+
+	public void setWrk_id(String wrk_id) {
+		this.wrk_id = wrk_id;
+	}
+
+	public String getDtl_id() {
+		return dtl_id;
+	}
+
+	public void setDtl_id(String dtl_id) {
+		this.dtl_id = dtl_id;
+	}
+
+	public String getStk_id() {
+		return stk_id;
+	}
+
+	public void setStk_id(String stk_id) {
+		this.stk_id = stk_id;
+	}
+
+	public String getDtl_ord() {
+		return dtl_ord;
+	}
+
+	public void setDtl_ord(String dtl_ord) {
+		this.dtl_ord = dtl_ord;
 	}
 
 	@Override
 	public String toString() {
-		return "APIdto [id=" + id + "]";
+		return "APIdto [dvc_id=" + dvc_id + ", wrk_id=" + wrk_id + ", dtl_id=" + dtl_id + ", stk_id=" + stk_id
+				+ ", dtl_ord=" + dtl_ord + "]";
 	}
+
+
 	
 
 }
