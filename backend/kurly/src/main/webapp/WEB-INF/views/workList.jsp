@@ -527,7 +527,7 @@ function fn_buildTable2(data) {
 	        		"<td id=table2_"+ "DTL_ID "+ i +" class='cell'><center>" + data[i].dtl_ID + "</center></td>"+
 	        		"<td id=table2_"+ "PROD_ID "+ i +" class='cell'><center>" + data[i].prod_ID + "</center></td>"+
 	        		"<td id=table2_"+ "DTL_NUMB"+ i +" class='cell'><center>" + data[i].dtl_NUMB + "</center></td>"+
-	        		"<td id=table2_"+ "DTL_START"+ i +" class='cell'><center>" + data[i].dtl_START + "</center></td>"+
+	        		"<td id=table2_"+ "DTL_START"+ i +" class='cell'><center>" + data[i].dtl_Start + "</center></td>"+
 	        		"<td id=table2_"+ "DTL_END"+ i +" class='cell'><center>" + data[i].dtl_END + "</center></td>"+
 	        	   "</tr>" + "\n" ;
             table.innerHTML += row;   
