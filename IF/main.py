@@ -5,8 +5,10 @@ import webbrowser
 from tkinter.ttk import *
 from tkinter import *
 from PIL import ImageTk, Image
+import requests
 ## from picamera import PiCamera
 from time import sleep
+import json
 
 ### 카메라 이미지 구현 ###
 
@@ -14,7 +16,7 @@ from time import sleep
 #######################
 
 TRANSCOLOUR = 'gray'
-url = "http://54.180.171.70:8787/"
+url = "http://54.180.171.70:8787/api/button"
 
 #- (정보요청) 버튼0 : [송수신] 작업확인 요청 ⇒ API0호출
 #    - param : 처음여부, 비정상여부
@@ -84,25 +86,56 @@ class CameraImage():
 #            self.canvas.create_text(220, 30, text="불일치", fill='red', font=('Helvetica 15 bold'))
 #            self.canvas.create_text(190, 210, text="Invalid", fill='red', font=('Helvetica 15 bold'))
 
+    def GetLoc(self, ItemCode):
+        loc_dict = self.worklist['location']
+        for loc in loc_dict:
+            if loc["PROD_ID"] == ItemCode:
+                return loc["LOC_ID"]
+
     def CloseCamera(self):
         self.root.destroy()
 
     def GetWorkDetail(self, Info):
         self.worklist = Info
         self.currentIdx = 0
-        self.canvas.create_text(220, 90, text=self.worklist["WorkID"], fill='white', font=('Helvetica 15 bold'))
+        WorkID = self.worklist["TB_LO_WORK"]["wrk_ID"]
+        self.canvas.create_text(220, 90, text=WorkID, fill='white', font=('Helvetica 15 bold'))
 
     def StartWork(self):
         self.canvas.delete('label')
-        self.canvas.create_text(220, 120, text=self.worklist["DetailID"][self.currentIdx], fill='white', font=('Helvetica 15 bold'), tags='label')
-        self.canvas.create_text(220, 150, text=self.worklist["ItemLoc"][self.currentIdx], fill='white', font=('Helvetica 15 bold'), tags='label')
-        self.canvas.create_text(220, 180, text=self.worklist["ItemCode"][self.currentIdx], fill='white', font=('Helvetica 15 bold'), tags='label')
-
-    def FinishWork(self):
-        if self.currentIdx + 1 == len(self.worklist["DetailID"]):
+        if self.currentIdx == len(self.worklist["TB_LO_WORKDTL"]):
             tkinter.messagebox.showerror(title="Error", message="No more work left")
         else:
-            self.currentIdx += 1
+            DetailID = self.worklist["TB_LO_WORKDTL"][self.currentIdx]["DTL_ID"]
+            ItemCode = self.worklist["TB_LO_WORKDTL"][self.currentIdx]["PROD_ID"]
+            WorkID = self.worklist["TB_LO_WORK"]["wrk_ID"]
+            Loc = self.GetLoc(ItemCode)
+            self.canvas.create_text(220, 120, text=DetailID, fill='white', font=('Helvetica 15 bold'), tags='label')
+            self.canvas.create_text(220, 150, text=Loc, fill='white', font=('Helvetica 15 bold'), tags='label')
+            self.canvas.create_text(220, 180, text=ItemCode, fill='white', font=('Helvetica 15 bold'), tags='label')
+
+            button2 = url + "2"
+            order = ""
+            if self.currentIdx == 0:
+                order = "first"
+
+            data = {"dtl_id":DetailID, "wrk_id":WorkID, "dtl_ord": order}
+            response = requests.post(button2, json=data)
+            print("button2 : " + str(response))
+
+    def FinishWork(self):
+        DetailID = self.worklist["TB_LO_WORKDTL"][self.currentIdx]["DTL_ID"]
+        WorkID = self.worklist["TB_LO_WORK"]["wrk_ID"]
+
+        order = ""
+        self.currentIdx += 1
+        if self.currentIdx == len(self.worklist["TB_LO_WORKDTL"]):
+            order = "last"
+
+        button3 = url + "3"
+        data = {"dtl_id":DetailID, "wrk_id":WorkID, "dtl_ord": order}
+        response = requests.post(button3, json=data)
+        print("button3 : " + str(response))
 
     def SendResult(self):
         return self.JudgeTable
@@ -110,6 +143,7 @@ class CameraImage():
 class GlassControlPanel():
     def __init__(self):
         self.app = None
+        self.Info = None
 
         self.root = Tk()
         self.root.geometry("320x200")
@@ -148,8 +182,13 @@ class GlassControlPanel():
         if self.app == None:
             tkinter.messagebox.showerror(title="Error", message="There is no Camera Display")
         else:
-            Info = GrabInfo()
-            self.app.GetWorkDetail(Info)
+            button1 = url + "1"
+
+            data = {'dvc_id': 'DV0001'}
+            RequestWork = requests.post(button1, json=data)
+
+            self.Info = json.loads(RequestWork.text)
+            self.app.GetWorkDetail(self.Info)
 
     def StartWork(self):
         if self.app == None:
@@ -167,8 +206,8 @@ class GlassControlPanel():
         if self.app == None:
             tkinter.messagebox.showerror(title="Error", message="There is no Camera Display")
         else:
-            Info = self.app.SendResult()
-            if Info == None:
+            self.Info = self.app.SendResult()
+            if self.Info == None:
                 tkinter.messagebox.showerror(title="Error", message="There is no Judgement to send")
 
 
