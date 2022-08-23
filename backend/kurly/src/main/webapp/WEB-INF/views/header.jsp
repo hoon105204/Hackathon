@@ -224,7 +224,7 @@ header {
 	    <a href="/login/page">AR화면</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
-	    <a href="/ar/page">AR화면</a>
+	    <a onclick="openAR()">AR화면</a>
 	    </c:if>
 	    </div>
 	    
@@ -247,6 +247,12 @@ header {
 	toggleBtn.addEventListener('click', () => {
 		menu.classList.toggle('active');
 	})
+	
+	function openAR() {
+		var url = "http://211.106.17.120:9496/?action=stream";
+		var options = 'top=10, left=10, width=1000, height=600, status=no, menubar=no, toolbar=no';
+		window.open(url, 'AR', options);
+	}
 
 </script>
 </html>

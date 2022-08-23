@@ -18,5 +18,6 @@ public interface APIService {
 	public int complDTL(String DTL_ID);
 	public int ongoWRK(String WRK_ID);
 	public int complWRK(String WRK_ID);
+	public String selectProdId(String barcode);
 	
 }

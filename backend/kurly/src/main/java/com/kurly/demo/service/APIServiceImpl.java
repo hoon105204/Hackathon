@@ -70,5 +70,10 @@ public class APIServiceImpl implements APIService{
 	public int complWRK(String WRK_ID) {
 		return apiMapper.complWRK(WRK_ID);
 	}
+
+	@Override
+	public String selectProdId(String barcode) {
+		return apiMapper.selectProdId(barcode);
+	}
 	
 }
