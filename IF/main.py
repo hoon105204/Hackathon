@@ -1,13 +1,8 @@
 import random
-import sys
 import tkinter.messagebox
-import webbrowser
 from tkinter.ttk import *
 from tkinter import *
-from PIL import ImageTk, Image
 import requests
-## from picamera import PiCamera
-from time import sleep
 import json
 
 TRANSCOLOUR = 'gray'
