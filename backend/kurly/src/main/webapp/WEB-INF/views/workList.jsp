@@ -255,7 +255,7 @@ button:hover {
 		 	  <button class="menu" id="btn_status_200">작업중</button>
 		 	  <button class="menu" id="btn_status_300">작업완료</button>
 		    </div>
-		</div>	   
+		</div>
 		
 <!-- 		<div class="section">
 		 	<div class="section_btn_wrkproduce">

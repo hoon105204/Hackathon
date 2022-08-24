@@ -197,7 +197,7 @@ header {
 	    <a href="/login/page">물류관리</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
-	    <a href="/map/user">물류관리</a>
+	    <a href="/location">물류관리</a>
 	    </c:if>
 	    </div>
 	    

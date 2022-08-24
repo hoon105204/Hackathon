@@ -23,4 +23,8 @@ public class KurlyApplication {
 		return "workList";
 	}
 
+	@RequestMapping("/location")
+	public String golocation() {
+		return "location";
+	}
 }
