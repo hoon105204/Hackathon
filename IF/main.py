@@ -128,7 +128,14 @@ class CameraImage():
             order = "last"
 
         button3 = url + "3"
-        data = {"dtl_id":DetailID, "wrk_id":WorkID, "stk_id":self.Donelist, "dtl_ord": order}
+
+        strDone = ""
+        strDone += "['"
+        strPlus = "','".join(self.Donelist)
+        strDone += strPlus
+        strDone += "']"
+
+        data = {"dtl_id":DetailID, "wrk_id":WorkID, "stk_id":strDone, "dtl_ord": order}
         response = requests.post(button3, json=data)
         print("button3 : " + str(response))
 
