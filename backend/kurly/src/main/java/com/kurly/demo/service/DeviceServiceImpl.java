@@ -1,0 +1,48 @@
+package com.kurly.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kurly.demo.dto.TB_LO_DEVICE;
+import com.kurly.demo.dto.TB_LO_USING;
+import com.kurly.demo.mapper.DeviceMapper;
+
+@Service
+public class DeviceServiceImpl implements DeviceService{
+	
+	@Autowired
+	DeviceMapper deviceMapper;
+
+	@Override
+	public List<TB_LO_DEVICE> selectAll() {
+		return deviceMapper.selectAll();
+	}
+
+	@Override
+	public List<TB_LO_USING> selectHist(String DEV_ID) {
+		return deviceMapper.selectHist(DEV_ID);
+	}
+
+	@Override
+	public TB_LO_USING selectInUse(String EMP_ID) {
+		return deviceMapper.selectInUse(EMP_ID);
+	}
+
+	@Override
+	public int updateStatus(TB_LO_DEVICE dto) {
+		return deviceMapper.updateStatus(dto);
+	}
+
+	@Override
+	public int returnDevice(TB_LO_USING dto) {
+		return deviceMapper.returnDevice(dto);
+	}
+
+	@Override
+	public int insertHist(TB_LO_USING dto) {
+		return deviceMapper.insertHist(dto);
+	}
+
+}

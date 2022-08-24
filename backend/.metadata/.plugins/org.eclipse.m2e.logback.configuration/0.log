@@ -6160,3 +6160,6 @@ org.eclipse.core.runtime.CoreException: Could not read maven project
 2022-08-24 13:45:43,979 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2022-08-24 13:45:43,979 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
 2022-08-24 13:45:43,979 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\hoon3\Git\Hackathon\backend\kurly\src\test\resources
+2022-08-24 18:01:07,566 [main] INFO  o.e.m2e.actions.ExecutePomAction - Using existing launch configuration
+2022-08-24 18:01:07,945 [Worker-50: Launching kurly] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\hoon3\Git\Hackathon\backend\kurly
+2022-08-24 18:01:07,957 [Worker-50: Launching kurly] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B package -Dstyle.color=always
