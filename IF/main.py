@@ -52,6 +52,7 @@ class CameraImage():
         self.currentIdx = 0
         self.currentStatus = True
         self.JudgeTable = None
+        self.Donelist = []
 
         self.OpenCamera()
 
@@ -127,7 +128,7 @@ class CameraImage():
             order = "last"
 
         button3 = url + "3"
-        data = {"dtl_id":DetailID, "wrk_id":WorkID, "dtl_ord": order}
+        data = {"dtl_id":DetailID, "wrk_id":WorkID, "stk_id":self.Donelist, "dtl_ord": order}
         response = requests.post(button3, json=data)
         print("button3 : " + str(response))
 
@@ -147,9 +148,11 @@ class CameraImage():
         Info = json.loads(response.text)
         ProdID = Info["PROD_ID"]
         ItemCode = self.worklist["TB_LO_WORKDTL"][self.currentIdx]["PROD_ID"]
+        DoneID = Info["STK_ID"]
 
         self.canvas.delete('result')
         if ProdID == ItemCode:
+            self.Donelist.append(DoneID)
             ItemName = self.worklist["TB_LO_WORKDTL"][self.currentIdx]["PROD_NM"]
             self.canvas.create_text(220, 30, text="일치", fill='purple', font=('Helvetica 15 bold'), tags='result')
             self.canvas.create_text(220, 210, text=ItemName, fill='purple', font=('Helvetica 15 bold'), tags='result')
