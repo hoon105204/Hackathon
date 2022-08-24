@@ -28,4 +28,8 @@ public class KurlyApplication {
 		return "arcam";
 	}
 
+	@RequestMapping("/location")
+	public String golocation() {
+		return "location";
+	}
 }
