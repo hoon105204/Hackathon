@@ -18,13 +18,16 @@ public class TB_LO_STOCK {
 	public double LOC_X;
 	public double LOC_Y;
 	public double LOC_Z;
+	public String CNT_PROD; // 20220824 박비오 MapMapper 사용
+	public String REPRESENT_PROD_NM; // 20220824 박비오 MapMapper 사용
+
 	public TB_LO_STOCK() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public TB_LO_STOCK(String sTK_ID, String pROD_ID, String lOC_ID, String sTK_IN, String sTK_OUT, String sTK_QR,
 			String lOC_STAT, String lOC_G1, String lOC_G2, String lOC_G3, String lOC_G4, String lOC_G5, String lOC_G6,
-			double lOC_X, double lOC_Y, double lOC_Z) {
+			double lOC_X, double lOC_Y, double lOC_Z, String PROD_CNT) {
 		super();
 		STK_ID = sTK_ID;
 		PROD_ID = pROD_ID;
@@ -42,6 +45,7 @@ public class TB_LO_STOCK {
 		LOC_X = lOC_X;
 		LOC_Y = lOC_Y;
 		LOC_Z = lOC_Z;
+		
 	}
 	public String getSTK_ID() {
 		return STK_ID;
@@ -139,12 +143,21 @@ public class TB_LO_STOCK {
 	public void setLOC_Z(double lOC_Z) {
 		LOC_Z = lOC_Z;
 	}
+
+	public String getPROD_CNT() {
+		return CNT_PROD;
+	}
+	
+	public String getREPRESENT_PROD_NM() {
+		return REPRESENT_PROD_NM;
+	}
+
 	@Override
 	public String toString() {
 		return "TB_LO_STOCK [STK_ID=" + STK_ID + ", PROD_ID=" + PROD_ID + ", LOC_ID=" + LOC_ID + ", STK_IN=" + STK_IN
 				+ ", STK_OUT=" + STK_OUT + ", STK_QR=" + STK_QR + ", LOC_STAT=" + LOC_STAT + ", LOC_G1=" + LOC_G1
 				+ ", LOC_G2=" + LOC_G2 + ", LOC_G3=" + LOC_G3 + ", LOC_G4=" + LOC_G4 + ", LOC_G5=" + LOC_G5
-				+ ", LOC_G6=" + LOC_G6 + ", LOC_X=" + LOC_X + ", LOC_Y=" + LOC_Y + ", LOC_Z=" + LOC_Z + "]";
+				+ ", LOC_G6=" + LOC_G6 + ", LOC_X=" + LOC_X + ", LOC_Y=" + LOC_Y + ", LOC_Z=" + LOC_Z + ", PROD_CNT=" + PROD_CNT + "]";
 	}
 	
 	

@@ -189,7 +189,7 @@ button:hover {
     width: 640px;
     height: 900px;
     margin: 0 auto;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     
     flex-direction: column;
 	justify-content: center;
@@ -204,6 +204,7 @@ button:hover {
 }
 .Location {
 	float:left;
+	color: #fff;
 }
 
 .Location_right {
@@ -211,6 +212,23 @@ button:hover {
 }
 
 /* left 컨테이너 css 끝 */
+
+/* right 컨테이너 css 시작 */
+.DtlField {
+	float:left;
+	background-color: lightgray;
+}
+.DtlValue {
+	float:left;
+	
+}
+
+.location_block{
+	text-align:center;
+	font-size :14px;
+}
+
+/* right 컨테이너 css 끝 */
 
 
 
@@ -240,13 +258,15 @@ button:hover {
 				 	<div id="leftCanvas">
 				    </div>
 				</div>
-	        
 	        </div>
 	        <!-- 왼쪽 화면 끝 -->
 	        
 			<!-- 오른쪽 화면 시작 -->				
 	        <div class="right-box">
-	        
+		        <div class="section">
+					 	<div id="rightCanvas">
+					    </div>
+					</div>
 	        </div>
 	        <!-- 오른쪽 화면 끝 -->
 
@@ -258,6 +278,10 @@ button:hover {
 
 <script type="text/javascript">
 
+var sG1 = "A"; // A창고용 화면임
+var sG2 = "";
+
+// left canvas
 var LeftArea = [
 	  {id:"LeftArea11",	class_style:"Area",	x:30,	y:20,	width: 360,	height:400/*,	border:"1px solid #000000"*/ } // 1열 1구역
 	, {id:"LeftArea12",	class_style:"Area",	x:50,	y:20,	width: 360,	height:400/*,	border:"1px solid #000000"*/ } // 1열 2구역
@@ -267,105 +291,234 @@ var LeftArea = [
 
 // 1열 1구역 생성
 var Location11 = [
-	  {id:"LocationArea11_Title",	class_style:"Location",	x:12,	y:20,	width:400,	height:30,								 							title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>1열 1구역&nbsp;&nbsp</td></tr></table>"}
+	  {id:"LocationArea11_Title",	class_style:"Location_Title",	x:12,	y:20,	width:400,	height:30,	title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>1열 1구역&nbsp;&nbsp</td></tr></table>"}
 	  
-	, {id:"LocationArea1101",	class_style:"Location",	x:20,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1101'>1101&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1102",	class_style:"Location",	x:35,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1102'>1102&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1103",	class_style:"Location",	x:50,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1103'>1103&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1104",	class_style:"Location",	x:65,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1104'>1104&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1101",	class_style:"Location",	x:20,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1101' onClick=fn_onclick_location_block(this.id);>1101&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1102",	class_style:"Location",	x:35,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1102' onClick=fn_onclick_location_block(this.id);>1102&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1103",	class_style:"Location",	x:50,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1103' onClick=fn_onclick_location_block(this.id);>1103&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1104",	class_style:"Location",	x:65,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1104' onClick=fn_onclick_location_block(this.id);>1104&nbsp;&nbsp</td></tr></table>"}
 	
 	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
 	
-	, {id:"LocationArea1105",	class_style:"Location",	x:20,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1105'>1105&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1106",	class_style:"Location",	x:35,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1106'>1106&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1107",	class_style:"Location",	x:50,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1107'>1107&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1108",	class_style:"Location",	x:65,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1108'>1108&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1105",	class_style:"Location",	x:20,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1105' onClick=fn_onclick_location_block(this.id);>1105&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1106",	class_style:"Location",	x:35,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1106' onClick=fn_onclick_location_block(this.id);>1106&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1107",	class_style:"Location",	x:50,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1107' onClick=fn_onclick_location_block(this.id);>1107&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1108",	class_style:"Location",	x:65,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1108' onClick=fn_onclick_location_block(this.id);>1108&nbsp;&nbsp</td></tr></table>"}
 	
 	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
 	
-	, {id:"LocationArea1109",	class_style:"Location",	x:20,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1109'>1109&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1110",	class_style:"Location",	x:35,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1110'>1110&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1111",	class_style:"Location",	x:50,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1111'>1111&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1112",	class_style:"Location",	x:65,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1112'>1112&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1109",	class_style:"Location",	x:20,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1109' onClick=fn_onclick_location_block(this.id);>1109&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1110",	class_style:"Location",	x:35,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1110' onClick=fn_onclick_location_block(this.id);>1110&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1111",	class_style:"Location",	x:50,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1111' onClick=fn_onclick_location_block(this.id);>1111&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1112",	class_style:"Location",	x:65,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1112' onClick=fn_onclick_location_block(this.id);>1112&nbsp;&nbsp</td></tr></table>"}
 	
 	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
 	
-	, {id:"LocationArea1113",	class_style:"Location",	x:20,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1113'>1113&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1114",	class_style:"Location",	x:35,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1114'>1114&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1115",	class_style:"Location",	x:50,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1115'>1115&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1116",	class_style:"Location",	x:65,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1116'>1116&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1113",	class_style:"Location",	x:20,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1113' onClick=fn_onclick_location_block(this.id);>1113&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1114",	class_style:"Location",	x:35,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1114' onClick=fn_onclick_location_block(this.id);>1114&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1115",	class_style:"Location",	x:50,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1115' onClick=fn_onclick_location_block(this.id);>1115&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1116",	class_style:"Location",	x:65,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1116' onClick=fn_onclick_location_block(this.id);>1116&nbsp;&nbsp</td></tr></table>"}
 	
 ];
 
 //1열 2구역 생성
 var Location12 = [
-	  {id:"LocationArea12_Title",	class_style:"Location",	x:12,	y:20,	width:400,	height:30,								 							title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>1열 2구역&nbsp;&nbsp</td></tr></table>"}
+	  {id:"LocationArea12_Title",	class_style:"Location_Title",	x:12,	y:20,	width:400,	height:30,	title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>1열 2구역&nbsp;&nbsp</td></tr></table>"}
 	  
-	, {id:"LocationArea1201",	class_style:"Location",	x:20,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1201'>1101&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1202",	class_style:"Location",	x:35,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1202'>1102&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1203",	class_style:"Location",	x:50,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1203'>1103&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1204",	class_style:"Location",	x:65,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1204'>1104&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1201",	class_style:"Location",	x:20,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1201' onClick=fn_onclick_location_block(this.id);>1101&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1202",	class_style:"Location",	x:35,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1202' onClick=fn_onclick_location_block(this.id);>1102&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1203",	class_style:"Location",	x:50,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1203' onClick=fn_onclick_location_block(this.id);>1103&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1204",	class_style:"Location",	x:65,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1204' onClick=fn_onclick_location_block(this.id);>1104&nbsp;&nbsp</td></tr></table>"}
 	                                                                                                                                                                                                                                          
 	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}                                                                                                                                     
 	                                                                                                                                                                                                                                          
-	, {id:"LocationArea1205",	class_style:"Location",	x:20,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1205'>1105&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1206",	class_style:"Location",	x:35,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1206'>1106&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1207",	class_style:"Location",	x:50,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1207'>1107&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1208",	class_style:"Location",	x:65,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1208'>1108&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1205",	class_style:"Location",	x:20,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1205' onClick=fn_onclick_location_block(this.id);>1105&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1206",	class_style:"Location",	x:35,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1206' onClick=fn_onclick_location_block(this.id);>1106&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1207",	class_style:"Location",	x:50,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1207' onClick=fn_onclick_location_block(this.id);>1107&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1208",	class_style:"Location",	x:65,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1208' onClick=fn_onclick_location_block(this.id);>1108&nbsp;&nbsp</td></tr></table>"}
 	                                                                                                                                                                                                                                           
 	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}                                                                                                                                      
 	                                                                                                                                                                                                                                           
-	, {id:"LocationArea1209",	class_style:"Location",	x:20,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1209'>1109&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1210",	class_style:"Location",	x:35,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1210'>1110&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1211",	class_style:"Location",	x:50,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1211'>1111&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1212",	class_style:"Location",	x:65,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1212'>1112&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1209",	class_style:"Location",	x:20,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1209' onClick=fn_onclick_location_block(this.id);>1109&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1210",	class_style:"Location",	x:35,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1210' onClick=fn_onclick_location_block(this.id);>1110&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1211",	class_style:"Location",	x:50,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1211' onClick=fn_onclick_location_block(this.id);>1111&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1212",	class_style:"Location",	x:65,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1212' onClick=fn_onclick_location_block(this.id);>1112&nbsp;&nbsp</td></tr></table>"}
 	                                                                                                                                                                                                                                            
 	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}                                                                                                                                       
 	                                                                                                                                                                                                                                            
-	, {id:"LocationArea1213",	class_style:"Location",	x:20,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1213'>1113&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1214",	class_style:"Location",	x:35,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1214'>1114&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1215",	class_style:"Location",	x:50,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1215'>1115&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea1216",	class_style:"Location",	x:65,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1216'>1116&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1213",	class_style:"Location",	x:20,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1213' onClick=fn_onclick_location_block(this.id);>1113&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1214",	class_style:"Location",	x:35,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1214' onClick=fn_onclick_location_block(this.id);>1114&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1215",	class_style:"Location",	x:50,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1215' onClick=fn_onclick_location_block(this.id);>1115&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea1216",	class_style:"Location",	x:65,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG1216' onClick=fn_onclick_location_block(this.id);>1116&nbsp;&nbsp</td></tr></table>"}
 	
 ];
 
 
 //2열 1구역 생성
 var Location21 = [
-	  {id:"LocationArea21_Title",	class_style:"Location",	x:12,	y:20,	width:400,	height:30,								 							title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>2열 1구역&nbsp;&nbsp</td></tr></table>"}
+	  {id:"LocationArea21_Title",	class_style:"Location_Title",	x:12,	y:20,	width:400,	height:30,	title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>2열 1구역&nbsp;&nbsp</td></tr></table>"}
 	  
-	, {id:"LocationArea2101",	class_style:"Location",	x:20,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2101'>1101&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2102",	class_style:"Location",	x:35,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2102'>1102&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2103",	class_style:"Location",	x:50,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2103'>1103&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2104",	class_style:"Location",	x:65,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2104'>1104&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2101",	class_style:"Location",	x:20,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2101' onClick=fn_onclick_location_block(this.id);>1101&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2102",	class_style:"Location",	x:35,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2102' onClick=fn_onclick_location_block(this.id);>1102&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2103",	class_style:"Location",	x:50,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2103' onClick=fn_onclick_location_block(this.id);>1103&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2104",	class_style:"Location",	x:65,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2104' onClick=fn_onclick_location_block(this.id);>1104&nbsp;&nbsp</td></tr></table>"}
 	                                                                                                                                                                                                                                          
 	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}                                                                                                                                     
 	                                                                                                                                                                                                                                          
-	, {id:"LocationArea2105",	class_style:"Location",	x:20,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2105'>1105&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2106",	class_style:"Location",	x:35,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2106'>1106&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2107",	class_style:"Location",	x:50,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2107'>1107&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2108",	class_style:"Location",	x:65,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2108'>1108&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2105",	class_style:"Location",	x:20,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2105' onClick=fn_onclick_location_block(this.id);>1105&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2106",	class_style:"Location",	x:35,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2106' onClick=fn_onclick_location_block(this.id);>1106&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2107",	class_style:"Location",	x:50,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2107' onClick=fn_onclick_location_block(this.id);>1107&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2108",	class_style:"Location",	x:65,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2108' onClick=fn_onclick_location_block(this.id);>1108&nbsp;&nbsp</td></tr></table>"}
 	                                                                                                                                                                                                                                          
 	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}                                                                                                                                     
 	                                                                                                                                                                                                                                          
-	, {id:"LocationArea2109",	class_style:"Location",	x:20,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2109'>1109&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2110",	class_style:"Location",	x:35,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2110'>1110&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2111",	class_style:"Location",	x:50,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2111'>1111&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2112",	class_style:"Location",	x:65,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2112'>1112&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2109",	class_style:"Location",	x:20,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2109' onClick=fn_onclick_location_block(this.id);>1109&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2110",	class_style:"Location",	x:35,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2110' onClick=fn_onclick_location_block(this.id);>1110&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2111",	class_style:"Location",	x:50,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2111' onClick=fn_onclick_location_block(this.id);>1111&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2112",	class_style:"Location",	x:65,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2112' onClick=fn_onclick_location_block(this.id);>1112&nbsp;&nbsp</td></tr></table>"}
 	                                                                                                                                                                                                                                          
 	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}                                                                                                                                     
 	                                                                                                                                                                                                                                          
-	, {id:"LocationArea2113",	class_style:"Location",	x:20,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2113'>1113&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2114",	class_style:"Location",	x:35,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2114'>1114&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2115",	class_style:"Location",	x:50,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2115'>1115&nbsp;&nbsp</td></tr></table>"}
-	, {id:"LocationArea2116",	class_style:"Location",	x:65,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2116'>1116&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2113",	class_style:"Location",	x:20,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2113' onClick=fn_onclick_location_block(this.id);>1113&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2114",	class_style:"Location",	x:35,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2114' onClick=fn_onclick_location_block(this.id);>1114&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2115",	class_style:"Location",	x:50,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2115' onClick=fn_onclick_location_block(this.id);>1115&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2116",	class_style:"Location",	x:65,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2116' onClick=fn_onclick_location_block(this.id);>1116&nbsp;&nbsp</td></tr></table>"}
 	
 ];
 
 
 //2열 2구역 생성
 var Location22 = [
-	  {id:"LocationArea22_Title",	class_style:"Location",	x:12,	y:20,	width:400,	height:30,								 							title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>2열 2구역&nbsp;&nbsp</td></tr></table>"}
+	  {id:"LocationArea22_Title",	class_style:"Location_Title",	x:12,	y:20,	width:400,	height:30,	title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>2열 2구역&nbsp;&nbsp</td></tr></table>"}
+	  
+	, {id:"LocationArea2201",	class_style:"Location",	x:20,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2201' onClick=fn_onclick_location_block(this.id);>1101&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2202",	class_style:"Location",	x:35,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2202' onClick=fn_onclick_location_block(this.id);>1102&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2203",	class_style:"Location",	x:50,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2203' onClick=fn_onclick_location_block(this.id);>1103&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2204",	class_style:"Location",	x:65,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2204' onClick=fn_onclick_location_block(this.id);>1104&nbsp;&nbsp</td></tr></table>"}
+	                                                                                                                                                                                                                                            
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}                                                                                                                                       
+	                                                                                                                                                                                                                                            
+	, {id:"LocationArea2205",	class_style:"Location",	x:20,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2205' onClick=fn_onclick_location_block(this.id);>1105&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2206",	class_style:"Location",	x:35,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2206' onClick=fn_onclick_location_block(this.id);>1106&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2207",	class_style:"Location",	x:50,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2207' onClick=fn_onclick_location_block(this.id);>1107&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2208",	class_style:"Location",	x:65,	y:100,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2208' onClick=fn_onclick_location_block(this.id);>1108&nbsp;&nbsp</td></tr></table>"}
+	                                                                                                                                                                                                                                            
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}                                                                                                                                       
+	                                                                                                                                                                                                                                            
+	, {id:"LocationArea2209",	class_style:"Location",	x:20,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2209' onClick=fn_onclick_location_block(this.id);>1109&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2210",	class_style:"Location",	x:35,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2210' onClick=fn_onclick_location_block(this.id);>1110&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2211",	class_style:"Location",	x:50,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2211' onClick=fn_onclick_location_block(this.id);>1111&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2212",	class_style:"Location",	x:65,	y:150,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2212' onClick=fn_onclick_location_block(this.id);>1112&nbsp;&nbsp</td></tr></table>"}
+	                                                                                                                                                                                                                                            
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}                                                                                                                                       
+	                                                                                                                                                                                                                                            
+	, {id:"LocationArea2213",	class_style:"Location",	x:20,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2213' onClick=fn_onclick_location_block(this.id);>1113&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2214",	class_style:"Location",	x:35,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2214' onClick=fn_onclick_location_block(this.id);>1114&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2215",	class_style:"Location",	x:50,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2215' onClick=fn_onclick_location_block(this.id);>1115&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationArea2216",	class_style:"Location",	x:65,	y:200,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2216' onClick=fn_onclick_location_block(this.id);>1116&nbsp;&nbsp</td></tr></table>"}
+	
+];
+
+// right canvas
+var rightArea = [
+	  {id:"rightArea1",	class_style:"Area",	x:30,	y:20,	width: 580,	height:520/*,	border:"1px solid #000000"*/ } // 우측 canvas 위쪽
+	, {id:"rightArea2",	class_style:"Area",	x:80,	y:45,	width: 500,	height:300/*,	border:"1px solid #000000"*/ } // 우측 canvas 아래쪽
+]
+
+//위쪽 생성
+var LocationDtl = [
+	  {id:"LocationDtl_Title",	class_style:"Location_Title",	x:12,	y:10,	width:400,	height:30,	title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>GG0000 적치상세&nbsp;&nbsp</td></tr></table>"}
+	  
+	, {id:"LocationAreaDtl11",	class_style:"Location",	x:30,	y:20,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG11' onClick=fn_onclick_stock_block(this.id);>11&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl12",	class_style:"Location",	x:40,	y:20,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG12' onClick=fn_onclick_stock_block(this.id);>12&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl13",	class_style:"Location",	x:50,	y:20,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG13'>13&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl14",	class_style:"Location",	x:60,	y:20,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG14'>14&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl15",	class_style:"Location",	x:70,	y:20,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG15'>15&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl16",	class_style:"Location",	x:80,	y:20,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG16'>16&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl17",	class_style:"Location",	x:90,	y:20,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG17'>17&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl18",	class_style:"Location",	x:100,	y:20,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG18'>18&nbsp;&nbsp</td></tr></table>"}
+
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl21",	class_style:"Location",	x:30,	y:25,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG21'>21&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl22",	class_style:"Location",	x:40,	y:25,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG22'>22&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl23",	class_style:"Location",	x:50,	y:25,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG23'>23&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl24",	class_style:"Location",	x:60,	y:25,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG24'>24&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl25",	class_style:"Location",	x:70,	y:25,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG25'>25&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl26",	class_style:"Location",	x:80,	y:25,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG26'>26&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl27",	class_style:"Location",	x:90,	y:25,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG27'>27&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl28",	class_style:"Location",	x:100,	y:25,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG28'>28&nbsp;&nbsp</td></tr></table>"}
+	
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl31",	class_style:"Location",	x:30,	y:30,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG31'>31&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl32",	class_style:"Location",	x:40,	y:30,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG32'>32&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl33",	class_style:"Location",	x:50,	y:30,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG33'>33&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl34",	class_style:"Location",	x:60,	y:30,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG34'>34&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl35",	class_style:"Location",	x:70,	y:30,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG35'>35&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl36",	class_style:"Location",	x:80,	y:30,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG36'>36&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl37",	class_style:"Location",	x:90,	y:30,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG37'>37&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl38",	class_style:"Location",	x:100,	y:30,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG38'>38&nbsp;&nbsp</td></tr></table>"}
+	
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl41",	class_style:"Location",	x:30,	y:35,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG41'>31&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl42",	class_style:"Location",	x:40,	y:35,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG42'>32&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl43",	class_style:"Location",	x:50,	y:35,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG43'>33&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl44",	class_style:"Location",	x:60,	y:35,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG44'>34&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl45",	class_style:"Location",	x:70,	y:35,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG45'>35&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl46",	class_style:"Location",	x:80,	y:35,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG46'>36&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl47",	class_style:"Location",	x:90,	y:35,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG47'>37&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl48",	class_style:"Location",	x:100,	y:35,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG48'>38&nbsp;&nbsp</td></tr></table>"}
+	
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl51",	class_style:"Location",	x:30,	y:40,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG51'>41&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl52",	class_style:"Location",	x:40,	y:40,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG52'>42&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl53",	class_style:"Location",	x:50,	y:40,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG53'>43&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl54",	class_style:"Location",	x:60,	y:40,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG54'>44&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl55",	class_style:"Location",	x:70,	y:40,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG55'>45&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl56",	class_style:"Location",	x:80,	y:40,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG56'>46&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl57",	class_style:"Location",	x:90,	y:40,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG57'>47&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl58",	class_style:"Location",	x:100,	y:40,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG58'>48&nbsp;&nbsp</td></tr></table>"}
+	
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl61",	class_style:"Location",	x:30,	y:45,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG61'>51&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl62",	class_style:"Location",	x:40,	y:45,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG62'>52&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl63",	class_style:"Location",	x:50,	y:45,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG63'>53&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl64",	class_style:"Location",	x:60,	y:45,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG64'>54&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl65",	class_style:"Location",	x:70,	y:45,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG65'>55&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl66",	class_style:"Location",	x:80,	y:45,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG66'>56&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl67",	class_style:"Location",	x:90,	y:45,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG67'>57&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl68",	class_style:"Location",	x:100,	y:45,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG68'>58&nbsp;&nbsp</td></tr></table>"}
+	
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl71",	class_style:"Location",	x:30,	y:50,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG71'>71&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl72",	class_style:"Location",	x:40,	y:50,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG72'>72&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl73",	class_style:"Location",	x:50,	y:50,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG73'>73&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl74",	class_style:"Location",	x:60,	y:50,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG74'>74&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl75",	class_style:"Location",	x:70,	y:50,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG75'>75&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl76",	class_style:"Location",	x:80,	y:50,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG76'>76&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl77",	class_style:"Location",	x:90,	y:50,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG77'>77&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl78",	class_style:"Location",	x:100,	y:50,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG78'>78&nbsp;&nbsp</td></tr></table>"}
+	
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl81",	class_style:"Location",	x:30,	y:55,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG81'>81&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl82",	class_style:"Location",	x:40,	y:55,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG82'>82&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl83",	class_style:"Location",	x:50,	y:55,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG83'>83&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl84",	class_style:"Location",	x:60,	y:55,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG84'>84&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl85",	class_style:"Location",	x:70,	y:55,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG85'>85&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl86",	class_style:"Location",	x:80,	y:55,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG86'>86&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl87",	class_style:"Location",	x:90,	y:55,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG87'>87&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl88",	class_style:"Location",	x:100,	y:55,	width:54,	height:50,	border: "1px solid #000000", backgroundColor:"#6830CE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG88'>88&nbsp;&nbsp</td></tr></table>"}
+];
+
+
+var Location22 = [
+	  {id:"LocationArea22_Title",	class_style:"Location_Title",	x:12,	y:20,	width:400,	height:30,	title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>2열 2구역&nbsp;&nbsp</td></tr></table>"}
 	  
 	, {id:"LocationArea2201",	class_style:"Location",	x:20,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2201'>1101&nbsp;&nbsp</td></tr></table>"}
 	, {id:"LocationArea2202",	class_style:"Location",	x:35,	y:50,	width:65,	height:30,	border: "2px solid #000000", backgroundColor:"#481FAE",	title:"<table class='tb1100'><tr><td class='location_block' id='tdLocation_GG2202'>1102&nbsp;&nbsp</td></tr></table>"}
@@ -395,21 +548,55 @@ var Location22 = [
 	
 ];
 
+//위쪽 생성
+var LocationDtl2 = [
+	  {id:"LocationDtl2_Title",	class_style:"Location_Title",	x:12,	y:10,	width:400,	height:30,	title:"<table class='tb1100'><tr><td class='location_title' id='tdLocation_Title'>GG000000 상세정보&nbsp;&nbsp</td></tr></table>"}
+	  
+	, {id:"LocationAreaDtl2_F1",	class_style:"DtlField",	x:30,	y:20,	width:150,	height:30,	title:"<table class='tb1100'><tr><td class='location_Field' id='tdField_1'>제품&수량&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl2_V1",	class_style:"DtlValue",	x:40,	y:20,	width:300,	height:30,	title:"<table class='tb1100'><tr><td class='location_Value' id='tdValue_1'>&nbsp;&nbsp</td></tr></table>"}
+
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl2_F2",	class_style:"DtlField",	x:30,	y:35,	width:150,	height:30,	title:"<table class='tb1100'><tr><td class='location_Field' id='tdField_2'>대표 상품&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl2_V2",	class_style:"DtlValue",	x:40,	y:35,	width:300,	height:30,	title:"<table class='tb1100'><tr><td class='location_Value' id='tdValue_2'>&nbsp;&nbsp</td></tr></table>"}
+
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl2_F3",	class_style:"DtlField",	x:30,	y:50,	width:150,	height:30,	title:"<table class='tb1100'><tr><td class='location_Field' id='tdField_3'>작업ID&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl2_V3",	class_style:"DtlValue",	x:40,	y:50,	width:300,	height:30,	title:"<table class='tb1100'><tr><td class='location_Value' id='tdValue_3'>&nbsp;&nbsp</td></tr></table>"}
+
+	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+	, {id:"LocationAreaDtl2_F4",	class_style:"DtlField",	x:30,	y:65,	width:150,	height:30,	title:"<table class='tb1100'><tr><td class='location_Field' id='tdField_4'>저장위치 상태&nbsp;&nbsp</td></tr></table>"}
+	, {id:"LocationAreaDtl2_V4",	class_style:"DtlValue",	x:40,	y:65,	width:300,	height:30,	title:"<table class='tb1100'><tr><td class='location_Value' id='tdValue_4'>&nbsp;&nbsp</td></tr></table>"}
+
+//	, {id:"Location skip",			class_style:"Location_right",	x:0,	y:0,	width:0,	height:0}
+	
+//	, {id:"LocationAreaDtl2_F5",	class_style:"DtlField",	x:30,	y:80,	width:150,	height:30,	title:"<table class='tb1100'><tr><td class='location_Field' id='tdField_5'>11&nbsp;&nbsp</td></tr></table>"}
+//	, {id:"LocationAreaDtl2_V5",	class_style:"DtlValue",	x:40,	y:80,	width:300,	height:30,	title:"<table class='tb1100'><tr><td class='location_Value' id='tdValue_5'>12&nbsp;&nbsp</td></tr></table>"}
+
+	
+];
+
 $(document).ready(function() {
 	
 	// left 영역
-	makePanel(LeftArea,	"leftCanvas");
+	makePanel(LeftArea,		"leftCanvas");
 	
-	makePanel(Location11,  "LeftArea11");
-	makePanel(Location12,  "LeftArea12");
-	makePanel(Location21,  "LeftArea21");
-	makePanel(Location22,  "LeftArea22");
+	makePanel(Location11,	"LeftArea11");
+	makePanel(Location12,	"LeftArea12");
+	makePanel(Location21,	"LeftArea21");
+	makePanel(Location22,	"LeftArea22");
 	
 	
 	// right 영역
+	makePanel(rightArea,	"rightCanvas");
+	
+	makePanel(LocationDtl,	"rightArea1");
+	makePanel(LocationDtl2,	"rightArea2");
 });
 
-function makePanel(panelArray, canvaeId){
+function makePanel(panelArray, canvasId){
 	var newPanel;
 	for (var ii = 0; ii < panelArray.length; ii++){
 		newPanel = document.createElement("div");
@@ -466,81 +653,9 @@ function makePanel(panelArray, canvaeId){
 			newPanel.style.display = panelArray[ii].display;
 		}
 		
-		document.getElementById(canvaeId).appendChild(newPanel);
+		document.getElementById(canvasId).appendChild(newPanel);
 	}
 	
-}
-
-
-
-$(document).ready(function() {
-	
-    $(".menu").click(function() {
-    	
-    	fn_change_displayed_dong();
-    	
-    	var pId = $(this).attr("id");
-    	
-       	var pDong = "";
-       	
-       	switch(pId){
-       	case "btn_A_dong":
-       		pDong = "A";
-       		break;
-       	case "btn_B_dong":
-       		pDong = "B";
-       		break;
-       	case "btn_C_dong":
-       		pDong = "C";
-       		break;
-       	default:
-       		pDong = "%";
-       	
-       	};
-       	
-       	fn_change_displayed_dong(pDong);
-       	
-/*         $.ajax({
-            url : '/map/mapsearch1',
-            type : 'POST',
-            data : {WRK_STAT : pDong},
-        	// data : $("#form_Search1").serialize(),
-            success : function(obj) {
-                console.log(obj);
-                var data = JSON.parse(obj);
-                console.log(data.mapList); //배열로 가져옴
-                
-                fn_buildTable(data.mapList); // 화면 배치
-                },
-            error : function(e) {
-                console.log(e);
-            }
-    	}); */
-	});
-       	
-});
-
-
-function fn_buildTable(data) {
-	// console.log("fn_buildTable1 start!");
-	
-/* 	var row = "";
-    var table = document.getElementById("table1") ;
-    table.innerHTML = "";
-       for (var i=0; i<data.length; i++) { 
-            row = "<tr>"+
-	        		"<td id=table1_"+ "NO "+ i +" class='cell'><center>" + Number(i+1) + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_STAT "+ i +" class='cell'><center>" + data[i].wrk_STAT + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_ID "+ i +" class='cell'><center>" + data[i].wrk_ID + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_PRODUCE "+ i +" class='cell'><center>" + data[i].wrk_PRODUCE + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_DUEDATE "+ i +" class='cell'><center>" + data[i].wrk_DUEDATE + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_START "+ i +" class='cell'><center>" + data[i].wrk_START + "</center></td>"+
-	        		"<td id=table1_"+ "WRK_END "+ i +" class='cell'><center>" + data[i].wrk_END + "</center></td>"+
-	        	   "</tr>" + "\n" ;
-            table.innerHTML += row;
-		} */
-        
-       // console.log("fn_buildTable1 end!");
 }
 
 $('.menu').each(function(index){
@@ -551,7 +666,75 @@ $('.menu').each(function(index){
 	$('.menu[menu-index!=' + index + ']').removeClass('clicked_menu');
 });
 
-function fn_change_displayed_dong(pDong){
+
+
+$(document).ready(function() {
+	
+    $(".menu").click(function() {
+    	
+    	fn_change_displayed_dong();
+    	
+    	var pId = $(this).attr("id");
+       	
+       	switch(pId){
+       	case "btn_A_dong":
+       		sG2 = "A";
+       		break;
+       	case "btn_B_dong":
+       		sG2 = "B";
+       		break;
+       	case "btn_C_dong":
+       		sG2 = "C";
+       		break;
+       	default:
+       		sG2 = "%";
+       	
+       	};
+       	
+       	fn_change_displayed_dong(sG2);
+       	
+         $.ajax({
+            url : '/map/mapsearch1',
+            type : 'POST',
+            data : {LOC_G1 : sG1, LOC_G2 : sG2},
+        	// data : $("#form_Search1").serialize(),
+            success : function(obj) {
+                // console.log(obj);
+                var data = JSON.parse(obj);
+                // console.log(data.mapList); //배열로 가져옴
+                
+                // fn_change_displayed_dong(data.mapList); // left canvas 적치맵 글자 표시 (미사용)
+                },
+            error : function(e) {
+                console.log(e);
+            }
+    	});
+	});
+       	
+});
+
+// search 1
+function fn_change_displayed_dong(pG2){
+	
+	// console.log("fn_buildTable1 start!");
+	
+	/* 	var row = "";
+	    var table = document.getElementById("table1") ;
+	    table.innerHTML = "";
+	       for (var i=0; i<data.length; i++) { 
+	            row = "<tr>"+
+		        		"<td id=table1_"+ "NO "+ i +" class='cell'><center>" + Number(i+1) + "</center></td>"+
+		        		"<td id=table1_"+ "WRK_STAT "+ i +" class='cell'><center>" + data[i].wrk_STAT + "</center></td>"+
+		        		"<td id=table1_"+ "WRK_ID "+ i +" class='cell'><center>" + data[i].wrk_ID + "</center></td>"+
+		        		"<td id=table1_"+ "WRK_PRODUCE "+ i +" class='cell'><center>" + data[i].wrk_PRODUCE + "</center></td>"+
+		        		"<td id=table1_"+ "WRK_DUEDATE "+ i +" class='cell'><center>" + data[i].wrk_DUEDATE + "</center></td>"+
+		        		"<td id=table1_"+ "WRK_START "+ i +" class='cell'><center>" + data[i].wrk_START + "</center></td>"+
+		        		"<td id=table1_"+ "WRK_END "+ i +" class='cell'><center>" + data[i].wrk_END + "</center></td>"+
+		        	   "</tr>" + "\n" ;
+	            table.innerHTML += row;
+			} */
+	        
+	       // console.log("fn_buildTable1 end!");
 	
 	var td;
 	var pId;
@@ -569,11 +752,124 @@ function fn_change_displayed_dong(pDong){
 			for(var i5=0; i5<G5.length; i5++ ){
 				pId = "tdLocation_GG" + G3[i3] + G4[i4] + G5[i5];
  				td = document.getElementById(pId);
-				td.innerHTML = 'A' + pDong + G3[i3] + G4[i4] + G5[i5]; // A창고 pDong 동
+				td.innerHTML = sG1 + pG2 + G3[i3] + G4[i4] + G5[i5]; // A창고 G2동
 			}	
 		}	
 	}
 }
+
+// search 2
+function fn_onclick_location_block(pId){
+	
+	var txt = pId;
+	var sG3G4G5 = pId.substring(13,18);
+	var sG3 = sG3G4G5.substring(0,1); 
+	var sG4 = sG3G4G5.substring(1,2);
+	var sG5 = sG3G4G5.substring(2,4);
+   	
+     $.ajax({
+        url : '/map/mapsearch2',
+        type : 'POST',
+        data : {LOC_G1:sG1, LOC_G2:sG2, LOC_G3:sG3, LOC_G4:sG4, LOC_G5:sG5},
+    	// data : $("#form_Search1").serialize(),
+        success : function(obj) {
+            // console.log(obj);
+            var data = JSON.parse(obj);
+            // console.log(data.mapList2); //배열로 가져옴
+            
+            fn_change_displayed_rightCanvas(data.MapList2); // left canvas 적치맵 글자 표시 (미사용)
+            },
+        error : function(e) {
+            console.log(e);
+        }
+	});
+}
+
+function fn_change_displayed_rightCanvas(data){
+	
+	var td;
+	var pId;
+	var nIdx;
+		
+	var G6 = ['1','2','3','4','5','6','7','8'];
+	var G7 = ['1','2','3','4','5','6','7','8'];
+	
+	for(var i6=0; i6<G6.length; i6++ ){
+		for(var i7=0; i7<G7.length; i7++ ){
+				pId = "tdLocation_GG" + G6[i6] + G7[i7];
+ 				td = document.getElementById(pId);
+ 				
+ 				nIdx = i6*8 + i7;
+				td.innerHTML =  data[nIdx].left_LOC_ID + "\n" + data[nIdx].loc_G6+ data[nIdx].loc_G7;
+		}	
+	}
+	
+	// 우상단 적치위치 현행화
+	var oTitle = document.getElementById(tdLocation_Title);
+	oTitle.innerHTML = data[0].left_LOC_ID;
+				
+	tdLocation_Title
+	var txt = pId;
+	var sLOC_ID = document.getElementById(pId).innerHTML;
+	sLOC_ID = sLOC_ID.replace("\n",""); 
+}
+
+
+// search 3
+function fn_onclick_stock_block(pId){
+	
+	var txt = pId;
+	var sLOC_ID = document.getElementById(pId).innerHTML;
+	sLOC_ID = sLOC_ID.replace("\n",""); 
+   	
+     $.ajax({
+        url : '/map/mapsearch3',
+        type : 'POST',
+        data : {LOC_ID:sLOC_ID},
+    	// data : $("#form_Search1").serialize(),
+        success : function(obj) {
+            // console.log(obj);
+            var data = JSON.parse(obj);
+            // console.log(data.StkList); //배열로 가져옴
+            
+            fn_change_displayed_rightDownCanvas(data.StkList); // left canvas 적치맵 글자 표시 (미사용)
+            },
+        error : function(e) {
+            console.log(e);
+        }
+	});
+}
+
+function fn_change_displayed_rightDownCanvas(data){
+	
+	var td;
+	var pId;
+	var nIdx;
+		
+	
+	for(var i6=0; i6<G6.length; i6++ ){
+		for(var i7=0; i7<G7.length; i7++ ){
+				pId = "tdLocation_GG" + G6[i6] + G7[i7];
+ 				td = document.getElementById(pId);
+ 				
+ 				nIdx = i6*8 + i7;
+				td.innerHTML =  fn_nvl(data[nIdx].left_LOC_ID) + "\n" + fn_nvl(data[nIdx].loc_G6)+ fn_nvl(data[nIdx].loc_G7);
+		}	
+	}
+}
+
+function isNull(v) {
+    return (v === undefined || v === null) ? true : false;
+}
+
+function fn_nvl(strA,strB){
+	if(isNull(strA)||isUndefined(strA)){
+		return strB;
+	} else {
+		return strA;
+	}
+}
+
 
 </script>
 </html>
