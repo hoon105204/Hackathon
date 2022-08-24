@@ -74,4 +74,12 @@ public interface APIMapper {
 	@Select(" SELECT PROD_ID FROM TB_LO_STOCK WHERE STK_QR=#{barcode} ")
 	public String selectProdId(String barcode);
 	
+	// 바코드로 prod_id 가져오기
+	@Select(" SELECT STK_ID FROM TB_LO_STOCK WHERE STK_QR=#{barcode} ")
+	public String selectSTKId(String barcode);
+	
+	// stk_id로 출고날짜 처리
+	@Update(" UPDATE TB_LO_STOCK SET STK_OUT=NOW() WHERE STK_ID=#{STK_ID} ")
+	public int updateSTKOUT(String STK_ID);
+	
 }

@@ -75,5 +75,18 @@ public class APIServiceImpl implements APIService{
 	public String selectProdId(String barcode) {
 		return apiMapper.selectProdId(barcode);
 	}
+
+	@Override
+	public String selectSTKId(String barcode) {
+		return apiMapper.selectSTKId(barcode);
+	}
+
+	@Override
+	public int updateSTKOUT(String[] strArr) {
+		for(int i=0; i<strArr.length; i++) {
+			apiMapper.updateSTKOUT(strArr[i]);
+		}
+		return 0;
+	}
 	
 }
