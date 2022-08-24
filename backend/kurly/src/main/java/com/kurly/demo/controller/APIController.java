@@ -91,6 +91,15 @@ public class APIController {
 			String wrk_id = dto.getWrk_id();
 			apiService.complWRK(wrk_id);
 		}
+
+		// 저리된 제고품들 업데이트(출고날짜처리)
+		String tmp = dto.getStk_id();
+		tmp = tmp.substring(1, tmp.length()-1);
+		tmp = tmp.replace("\'", "");
+
+		String[] strArr = tmp.split(",");
+		
+		apiService.updateSTKOUT(strArr);
 		
 	}
 	
@@ -103,6 +112,9 @@ public class APIController {
 		// 바코드로 prod_id 가져오기
 		String prod_id = apiService.selectProdId(barcode);
 		jsObj.put("PROD_ID", prod_id);
+		// 바코드로 stk_id 가져오기
+		String stk_id = apiService.selectSTKId(barcode);
+		jsObj.put("STK_ID", stk_id);
 		
 		return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
 	}
