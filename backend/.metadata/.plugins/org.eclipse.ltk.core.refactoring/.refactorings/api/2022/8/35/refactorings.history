@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;APIController.java&apos; to &apos;kurly/src/main/java/com.kurly.demo.controller&apos;&#x0D;&#x0A;- Original project: &apos;api&apos;&#x0D;&#x0A;- Destination element: &apos;kurly/src/main/java/com.kurly.demo.controller&apos;&#x0D;&#x0A;- Original element: &apos;com.api.demo.controller.APIController.java&apos;" description="Copy compilation unit" destination="=kurly/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.kurly.demo.controller" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.api.demo.controller{APIController.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1661132504921" units="1" version="1.0"/>
+</session>

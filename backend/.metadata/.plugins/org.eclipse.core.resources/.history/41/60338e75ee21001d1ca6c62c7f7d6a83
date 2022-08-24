@@ -1,0 +1,20 @@
+package com.kurly.demo.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import com.kurly.demo.dto.TB_LO_DEVICE;
+import com.kurly.demo.dto.TB_LO_USING;
+
+@Mapper
+public interface DeviceMapper {
+
+	@Select(" SELECT * FROM TB_LO_DEVICE ")
+	public List<TB_LO_DEVICE> selectAll();
+	
+	@Select(" SELECT * FROM TB_LO_USING WHERE DEV_ID=#{DEV_ID} ")
+	public List<TB_LO_USING> selectHist(String DEV_ID);
+	
+}

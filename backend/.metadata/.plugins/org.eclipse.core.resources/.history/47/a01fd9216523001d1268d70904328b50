@@ -1,0 +1,116 @@
+package com.kurly.demo.controller;
+
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.kurly.demo.dto.APIdto;
+import com.kurly.demo.dto.TB_CM_EMP;
+import com.kurly.demo.dto.TB_LO_DEVICE;
+import com.kurly.demo.dto.TB_LO_WORK;
+import com.kurly.demo.dto.TB_LO_WORKDTL;
+import com.kurly.demo.service.APIService;
+
+@RestController
+@RequestMapping(value="/api")
+public class APIController {
+	
+	@Autowired
+	APIService apiService;
+	
+	@PostMapping(value="/button1", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Object> button1(@RequestBody APIdto dto) {
+		String id = dto.getDvc_id();
+		JSONObject jsObj = new JSONObject();
+		
+		// 단말기 아이디로 단말기 정보 가져오기
+		TB_LO_DEVICE devInfo = apiService.selectDEV(id);
+		jsObj.put("TB_LO_DEVICE", devInfo);
+		
+		// 단말기 아이디로 가장 최근 이용자 아이디 가져오기
+		String user_id = apiService.selectUSE_ID(id);
+
+		// 이용자 아이디로 작업하나 가져오기
+		TB_LO_WORK lo_work= apiService.selectWork(user_id);
+		
+		jsObj.put("TB_LO_WORK", lo_work);
+		
+		// 작업 아이디로 작업세부 리스트 가져오기
+		try {
+			String wrk_id = lo_work.getWRK_ID();
+			List<TB_LO_WORKDTL> listDTL = apiService.selectDTL(wrk_id);
+			jsObj.put("TB_LO_WORKDTL", listDTL);
+			
+			// 세부리스트로 작업할 장소 가져오기
+			jsObj.put("location", apiService.selectposition(listDTL));
+			
+		} catch (Exception e) {
+			
+		}
+
+		return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/button2")
+	@ResponseBody
+	public void button2(@RequestBody APIdto dto) {
+		String dtl_id = dto.getDtl_id();
+		
+		// 세부작업 상태 진행중으로 update
+		apiService.ongoDTL(dtl_id);
+		
+		// 만약 첫작업 시작이라면
+		if(dto.getDtl_ord().equals("first")) {
+			String wrk_id = dto.getWrk_id();
+			apiService.ongoWRK(wrk_id);
+		}
+		
+	}
+	
+	@PostMapping(value="/button3")
+	@ResponseBody
+	public void button3(@RequestBody APIdto dto) {
+		String dtl_id = dto.getDtl_id();
+		
+		// 세부작업 상태 완료로 update
+		apiService.complDTL(dtl_id);
+		
+		// 만약 마지막 작업이 끝났다면
+		if(dto.getDtl_ord().equals("last")) {
+			String wrk_id = dto.getWrk_id();
+			apiService.complWRK(wrk_id);
+		}
+		
+		// 저리된 제고품들 업데이트(출고날짜)
+		System.out.println(dto.getStk_id());
+		
+	}
+	
+	@PostMapping(value="/button4", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Object> button4(@RequestBody APIdto dto) {
+		JSONObject jsObj = new JSONObject();
+		String barcode = dto.getBarcode();
+		
+		// 바코드로 prod_id 가져오기
+		String prod_id = apiService.selectProdId(barcode);
+		jsObj.put("PROD_ID", prod_id);
+		// 바코드로 stk_id 가져오기
+		String stk_id = apiService.selectSTKId(barcode);
+		jsObj.put("STK_ID", stk_id);
+		
+		return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+	}
+
+}

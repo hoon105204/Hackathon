@@ -1,0 +1,106 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인/회원가입</title>
+<link rel="icon" href="/images/mainhome/favicon.png">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style type="text/css">
+.middle {
+	margin: 0;
+	padding: 0;
+}
+
+.guideline {
+	margin: 0 auto;
+	width: 1125px;
+}
+
+.guideline-all {
+	margin-top: 16px !important;
+}
+
+.guideline-all i {
+	display: inline-block;
+	color: #151515;
+}
+
+.guideline-all li {
+	display: inline-block;
+}
+
+.guideline-all p {
+	display: inline-block;
+	font-size: 16px;
+}
+
+/* 탭 컨텐츠 스타일 */
+.tab_content {
+	display: none;
+	padding: 0px;
+	clear: both;
+	overflow: hidden;
+}
+
+/* 선택 된 탭 콘텐츠를 표시 */
+#login:checked ~ #login-content, #sign-up:checked ~ #sign-up-content,
+	#sign-up-form:checked ~ #sign-up-form-content {
+	display: block;
+}
+
+/* 선택된 탭 스타일 */
+.tabs input:checked+.tab_item {
+	background-color: #151515;
+	color: #fff;
+}
+
+.tab_content .field-wrap1 {
+	display: block;
+	text-align: center;
+	padding: 45px 10px 0px 10px;
+}
+
+.tab_content .field-wrap2 {
+	display: block;
+	text-align: center;
+	padding: 20px 10px 20px 10px;
+}
+
+</style>
+</head>
+<body>
+	<%@ include file="header.jsp"%>
+	<div id="wrap">
+		<div class="middle">
+			<div class="guideline">
+			<ul class="guideline-all">
+        		<li><a href="javascript:void(0)">
+        		<i class="fa-solid fa-house"></i>
+        		</a>
+        		<p>HOME > 로그인/회원가입</p>
+        		</li>	
+        	</ul>
+			</div>
+		</div>
+		
+		<div class="tab_content" id="sign-up-content">
+			<div class="sign-up-button">
+				<button type="button" id="regist_in">통합 회원 가입</button>
+				<div class="forgot-idpw">
+					<p class="forgot">
+						이미회원이신가요?&nbsp;|&nbsp;<a href="/login">로그인</a>
+					</p>
+				</div>
+				
+			</div>
+		</div>
+		
+
+	</div>
+	<%@ include file="footer.jsp"%>
+</body>
+</html>

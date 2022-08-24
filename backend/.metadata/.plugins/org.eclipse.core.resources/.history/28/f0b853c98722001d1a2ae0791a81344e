@@ -1,0 +1,25 @@
+package com.kurly.demo.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import com.kurly.demo.dto.TB_LO_DEVICE;
+import com.kurly.demo.dto.TB_LO_WORK;
+
+@Mapper
+public interface APIMapper {
+
+	// 단말기 아이디로 단말기 정보 가져오기
+	@Select(" SELECT * FROM TB_LO_DEVICE WHERE DEV_ID=#{DEV_ID} ")
+	public TB_LO_DEVICE selectDEV(String DEV_ID);
+	
+	// 단말기 아이디로 가장 최근 이용자 아이디 가져오기
+	@Select(" SELECT EMP_ID FROM TB_LO_USING WHERE DEV_ID=#{DEV_ID} ORDER BY USE_START DESC LIMIT 1 ")
+	public String selectUSE_ID(String DEV_ID);
+	
+	// 이용자 아이디로 생성된지 오래된 작업하나 가져오기
+	@Select(" SELECT * FROM TB_LO_WORK WHERE EMP_ID=#{EMP_ID} AND WRK_STAT IN (100,200) ORDER BY WRK_PRODUCE LIMIT 1 ")
+	public TB_LO_WORK selectWork(String EMP_ID);
+	
+	
+}

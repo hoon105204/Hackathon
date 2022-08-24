@@ -1,0 +1,12 @@
+package com.kurly.demo.dto;
+
+import java.time.LocalDateTime;
+
+public class TB_LO_USING {
+	private String USE_ID;
+	private String EMP_ID;
+	private String DEV_ID;
+	private String USE_STAT;
+	private LocalDateTime USE_START;
+	private LocalDateTime USE_END;
+}

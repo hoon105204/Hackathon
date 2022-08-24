@@ -1,0 +1,21 @@
+package com.kurly.demo.controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kurly.demo.dto.TB_LO_DEVICE;
+
+@Controller
+@RequestMapping("/device")
+public class DeviceController {
+	
+	@GetMapping("/page")
+	public String goDevice(Model model) {
+		List<TB_LO_DEVICE> list;
+		return "device";
+	}
+}

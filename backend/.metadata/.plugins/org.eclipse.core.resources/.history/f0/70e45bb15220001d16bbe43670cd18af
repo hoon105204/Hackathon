@@ -1,0 +1,84 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Welcome Home</title>
+</head>
+<body>
+  <%@ include file="header.jsp"%>
+	<div id="wrap">
+		<div class="section">
+		 	<div class="swiper mySwiper">
+		      <div class="swiper-wrapper">
+		        <div class="swiper-slide"><img src="/images/mainhome/Frame2.jpg"><div id="gopagebtn1"></div></div>
+		        <div class="swiper-slide"><img src="/images/mainhome/Frame3.jpg"><div id="gopagebtn2"></div></div>
+				<div class="swiper-slide"><img src="/images/mainhome/Frame12.png"></div>
+		      </div>
+		      <div class="swiper-button-next"></div>
+		      <div class="swiper-button-prev"></div>
+		      <div class="swiper-pagination"></div>
+		    </div>
+		    
+		    
+		   <div class="mainhome-bottom">
+		    <div class="homelist-all">
+		     <h3 id="homelist-title">오늘 올라온 완료목록</h3>
+		     	<c:if test="${req1 != 0}">
+		     		<img class="homelist" src="/images/mainhome/Frame4.png" onclick="location.href='/board/detail?req_No=${req1}'">
+				</c:if>
+		     	<c:if test="${req1 == 0}">
+		     		<img class="homelist" src="/images/mainhome/Frame4.png" onclick="location.href='/board/list'">
+				</c:if>
+		     	<c:if test="${req2 != 0}">
+		     		<img class="homelist" src="/images/mainhome/Frame5.png" onclick="location.href='/board/detail?req_No=${req2}'">
+				</c:if>
+		     	<c:if test="${req2 == 0}">
+		     		<img class="homelist" src="/images/mainhome/Frame5.png" onclick="location.href='/board/list'">
+				</c:if>
+		     	<c:if test="${req3 != 0}">
+		     		<img class="homelist" src="/images/mainhome/Frame9.png" onclick="location.href='/board/detail?req_No=${req3}'">
+				</c:if>
+		     	<c:if test="${req3 == 0}">
+		     		<img class="homelist" src="/images/mainhome/Frame9.png" onclick="location.href='/board/list'">
+				</c:if>
+		    </div>
+		    
+			    <div class="inquiry-notice">
+			     <h3 id="inquiry-notice-title">공지사항</h3>
+		      	  <div class="inquiry-notice-inner">
+		      	  
+		      	  <c:choose>
+		      	  <c:when test="${empty list }">
+		      	  	<p>공지사항이 없습니다.</p>
+		      	  </c:when>
+		      	  <c:otherwise>
+			       <c:forEach items="${list }" var="dto">
+			       <c:if test="${user_Code != null }">
+			        <div id="notice-inner1">
+			        <div class="inquiry-notice-inner-content"><a href="/inquiry/list?user_Code=${user_Code }">[공지] ${dto.no_Title }</a></div>
+			        <div><a id="inner-date" href="/inquiry/list?user_Code=${user_Code }"><fmt:formatDate value="${dto.no_Date}" pattern="yyyy-MM-dd"/></a></div>
+			        </div>
+			        </c:if>
+			        <c:if test="${user_Code == null }">
+			        <div id="notice-inner1">
+			        <div class="inquiry-notice-inner-content"><a href="/login">[공지] ${dto.no_Title }</a></div>
+			        <div><a id="inner-date"  href="/login"><fmt:formatDate value="${dto.no_Date}" pattern="yyyy-MM-dd"/></a></div>
+			        </div>
+			        </c:if>
+			       </c:forEach>
+			       </c:otherwise>
+			       </c:choose>
+			       
+			       </div>
+			    </div>
+		    </div>
+		    	 	
+		</div>
+	</div>
+  <%@ include file="footer.jsp" %>
+</body>
+</html>

@@ -1,0 +1,46 @@
+package com.kurly.demo.service;
+
+import java.util.List;
+
+import org.json.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kurly.demo.dto.TB_LO_DEVICE;
+import com.kurly.demo.dto.TB_LO_WORK;
+import com.kurly.demo.dto.TB_LO_WORKDTL;
+import com.kurly.demo.mapper.APIMapper;
+
+@Service
+public class APIServiceImpl implements APIService{
+
+	@Autowired
+	APIMapper apiMapper;
+
+	@Override
+	public TB_LO_DEVICE selectDEV(String DEV_ID) {
+		return apiMapper.selectDEV(DEV_ID);
+	}
+
+	@Override
+	public String selectUSE_ID(String DEV_ID) {
+		return apiMapper.selectUSE_ID(DEV_ID);
+	}
+
+	@Override
+	public TB_LO_WORK selectWork(String EMP_ID) {
+		return apiMapper.selectWork(EMP_ID);
+	}
+
+	@Override
+	public List<TB_LO_WORKDTL> selectDTL(String WRK_ID) {
+		return apiMapper.selectDTL(WRK_ID);
+	}
+
+	@Override
+	public JSONArray selectposition(List<TB_LO_WORKDTL> listDTL) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

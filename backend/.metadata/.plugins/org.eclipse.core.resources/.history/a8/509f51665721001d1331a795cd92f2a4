@@ -1,0 +1,5 @@
+package com.kurly.demo.mapper;
+
+public interface ARMapper {
+
+}

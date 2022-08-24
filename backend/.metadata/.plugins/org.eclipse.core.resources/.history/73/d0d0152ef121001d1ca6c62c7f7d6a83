@@ -1,0 +1,154 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>단말기등록</title>
+<link rel="icon" href="/images/mainhome/favicon.png">
+<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<script>
+	$(function($){
+	    $("#check-table").DataTable();
+	});
+</script>
+<style type="text/css">
+body {
+	font-size: 16px !important;
+}
+
+.top {
+	margin: 0;
+	padding: 0;
+}
+
+.middle {
+	margin: 0;
+	padding: 0;
+}
+
+.guideline {
+	margin: 0 auto !important;
+	width: 1125px;
+}
+
+.guideline-all {
+	margin: 16px 0 !important;
+	height: 51px !important;
+	line-height: 51px;
+}
+
+.guideline-all i {
+	display: inline-block;
+	color: #151515;
+}
+
+.guideline-all li {
+	display: inline-block;
+}
+
+.guideline-all p {
+	display: inline-block;
+	font-size: 15px;
+}
+
+.box {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	margin-top: 40px;
+	margin-bottom: 80px;
+	width: 1000px;
+}
+
+.innerbox{
+	margin-bottom: 40px;
+}
+</style>
+</head>
+<body>
+	<%@ include file="header.jsp"%>
+	<div id="wrap">
+		<div class="middle">
+			<div class="guideline">
+			<ul class="guideline-all">
+        		<li><a href="javascript:void(0)">
+        		<i class="fa-solid fa-house"></i>
+        		</a>
+        		<p>HOME > 단말기등록</p>
+        		</li>	
+        	</ul>
+			</div>
+		</div>
+		<div class="box">
+			<div class="innerbox">
+				<div class="innerbox-left">
+					<c:if test="${empty dto}">
+						<h3>${EMP_NM} 님은 단말기 이용중이 아닙니다.</h3>
+					</c:if>
+					<c:if test="${not empty dto}">
+						<h3>${EMP_NM} 님은 ${dto.DEV_ID}를 이용중 입니다.</h3>
+						<span>사용 시작 시간 : ${dto.USE_START }</span>
+					</c:if>
+				</div>
+				<div class="innerbox-right">
+					<c:if test="${not empty dto}">
+						<button>반납하기</button>
+					</c:if>
+				</div>
+			</div>
+		<table id="check-table" class="table table-bordered">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>단말기코드</th>
+					<th>상태</th>
+					<th>등록</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${list }" var="device" varStatus="status">
+					<tr>
+						<td>${status.index + 1}</td>
+						<td><a onclick="detail('${device.DEV_ID}')">${device.DEV_ID}</a></td>
+						<c:if test="${device.DEV_STAT eq '이용가능'}">
+						<td style="color : green;">${device.DEV_STAT}</td>
+						<td><a onclick="use('${device.DEV_ID}')">이용하기</a></td>
+						</c:if>
+						<c:if test="${device.DEV_STAT eq '이용중'}">
+						<td style="color : orange;">${device.DEV_STAT}</td>
+						<td><span style="color : gray;">이용중</span></td>
+						</c:if>
+						<c:if test="${device.DEV_STAT eq '고장'}">
+						<td style="color : red;">${device.DEV_STAT}</td>
+						<td><span style="color : gray;">이용불가</span></td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		</div>
+		
+		
+	</div>
+	<%@ include file="footer.jsp"%>
+</body>
+<script type="text/javascript">
+	function detail(dev_id) {
+		console.log(dev_id)
+		var url = '/device/detail?DEV_ID='+dev_id;
+		var options = 'top=10, left=10, width=775, height=600, status=no, menubar=no, toolbar=no';
+		window.open(url, 'detail', options);
+	}
+	
+	function use(dev_id) {
+		if
+		
+	}
+</script>
+</html>

@@ -1,0 +1,27 @@
+package com.kurly.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kurly.demo.dto.TB_LO_DEVICE;
+import com.kurly.demo.service.DeviceService;
+
+@Controller
+@RequestMapping("/device")
+public class DeviceController {
+	
+	@Autowired
+	DeviceService deviceService;
+	
+	@GetMapping("/page")
+	public String goDevice(Model model) {
+		List<TB_LO_DEVICE> list = deviceService.selectAll();
+		model.addAttribute("list", list);
+		return "device";
+	}
+}

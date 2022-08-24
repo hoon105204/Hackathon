@@ -1,0 +1,12 @@
+package com.kurly.demo.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import com.kurly.demo.dto.TB_CM_EMP;
+
+@Mapper
+public interface LoginMapper {
+	@Select(" SELECT * FROM TB_CM_EMP WHERE EMP_ID = #{EMP_ID} AND EMP_PW = #{EMP_PW} ")
+	public TB_CM_EMP userID(TB_CM_EMP dto);
+}

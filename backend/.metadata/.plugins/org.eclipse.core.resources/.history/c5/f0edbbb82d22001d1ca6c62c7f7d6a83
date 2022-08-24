@@ -1,0 +1,10 @@
+package com.kurly.demo.service;
+
+import com.kurly.demo.dto.TB_LO_DEVICE;
+import com.kurly.demo.dto.TB_LO_WORK;
+
+public interface APIService {
+	public TB_LO_DEVICE selectDEV(String DEV_ID);
+	public TB_LO_DEVICE selectUSE_ID(String DEV_ID);
+	public TB_LO_WORK selectWork(String EMP_ID);
+}

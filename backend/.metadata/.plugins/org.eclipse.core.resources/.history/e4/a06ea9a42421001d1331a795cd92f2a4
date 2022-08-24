@@ -1,0 +1,5 @@
+package com.kurly.demo.dto;
+
+public class TB_CM_EMP {
+
+}

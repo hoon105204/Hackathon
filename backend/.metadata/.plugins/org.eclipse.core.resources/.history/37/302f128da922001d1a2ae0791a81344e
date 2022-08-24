@@ -1,0 +1,19 @@
+package com.kurly.demo.service;
+
+import java.util.List;
+
+import org.json.JSONArray;
+
+import com.kurly.demo.dto.TB_LO_DEVICE;
+import com.kurly.demo.dto.TB_LO_WORK;
+import com.kurly.demo.dto.TB_LO_WORKDTL;
+
+public interface APIService {
+	public TB_LO_DEVICE selectDEV(String DEV_ID);
+	public String selectUSE_ID(String DEV_ID);
+	public TB_LO_WORK selectWork(String EMP_ID);
+	public List<TB_LO_WORKDTL> selectDTL(String WRK_ID);
+	public JSONArray selectposition(List<TB_LO_WORKDTL> listDTL);
+	
+	
+}

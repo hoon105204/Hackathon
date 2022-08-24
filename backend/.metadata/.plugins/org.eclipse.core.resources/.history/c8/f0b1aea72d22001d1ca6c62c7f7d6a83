@@ -1,0 +1,14 @@
+package com.kurly.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kurly.demo.mapper.APIMapper;
+
+@Service
+public class APIServiceImpl implements APIService{
+
+	@Autowired
+	APIMapper apiMapper;
+	
+}

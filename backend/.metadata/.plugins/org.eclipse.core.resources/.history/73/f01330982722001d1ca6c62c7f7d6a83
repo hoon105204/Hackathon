@@ -1,0 +1,61 @@
+package com.kurly.demo.controller;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.kurly.demo.dto.APIdto;
+import com.kurly.demo.dto.TB_CM_EMP;
+
+@RestController
+@RequestMapping(value="/api", produces = MediaType.APPLICATION_JSON_VALUE)
+public class APIController {
+	
+	@PostMapping(value="/button1")
+	@ResponseBody
+	public ResponseEntity<Object> button1(@RequestBody APIdto dto) {
+		String id = dto.getId();
+		JSONObject jsObj = new JSONObject();
+		jsObj.put("pass", "1234");
+		jsObj.put("pass2", 1234);
+		System.out.println(jsObj);
+		JSONArray jsArr = new JSONArray();
+		jsArr.put(jsObj.toMap());
+		return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/button2")
+	public TB_CM_EMP button2() {
+		TB_CM_EMP tmp = new TB_CM_EMP();
+		tmp.setEMP_ID("1234");
+		tmp.setEMP_NM("콩이");
+		tmp.setEMP_PW("1234");
+		return tmp;
+	}
+	
+	@PostMapping(value="/button3")
+	public TB_CM_EMP button3() {
+		TB_CM_EMP tmp = new TB_CM_EMP();
+		tmp.setEMP_ID("1234");
+		tmp.setEMP_NM("콩이");
+		tmp.setEMP_PW("1234");
+		return tmp;
+	}
+	
+	@PostMapping(value="/button4")
+	public TB_CM_EMP button4() {
+		TB_CM_EMP tmp = new TB_CM_EMP();
+		tmp.setEMP_ID("1234");
+		tmp.setEMP_NM("콩이");
+		tmp.setEMP_PW("1234");
+		return tmp;
+	}
+
+}

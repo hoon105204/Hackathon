@@ -1,0 +1,19 @@
+package com.kurly.demo.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import com.kurly.demo.dto.TB_LO_DEVICE;
+
+@Mapper
+public interface DeviceMapper {
+
+	@Select(" SELECT * FROM TB_LO_DEVICE ")
+	public List<TB_LO_DEVICE> selectAll();
+	
+	
+	
+	
+}
