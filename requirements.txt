@@ -1,0 +1,5 @@
+numpy
+opencv-python
+tkinter
+random
+pyzbar
