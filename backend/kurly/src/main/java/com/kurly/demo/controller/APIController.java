@@ -79,6 +79,7 @@ public class APIController {
 	}
 	
 	@PostMapping(value="/button3")
+	@ResponseBody
 	public void button3(@RequestBody APIdto dto) {
 		String dtl_id = dto.getDtl_id();
 		
@@ -93,13 +94,17 @@ public class APIController {
 		
 	}
 	
-	@PostMapping(value="/button4")
-	public TB_CM_EMP button4() {
-		TB_CM_EMP tmp = new TB_CM_EMP();
-		tmp.setEMP_ID("1234");
-		tmp.setEMP_NM("콩이");
-		tmp.setEMP_PW("1234");
-		return tmp;
+	@PostMapping(value="/button4", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Object> button4(@RequestBody APIdto dto) {
+		JSONObject jsObj = new JSONObject();
+		String barcode = dto.getBarcode();
+		
+		// 바코드로 prod_id 가져오기
+		String prod_id = apiService.selectProdId(barcode);
+		jsObj.put("PROD_ID", prod_id);
+		
+		return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
 	}
 
 }

@@ -224,7 +224,7 @@ header {
 	    <a href="/login/page">AR화면</a>
 	    </c:if>
 	    <c:if test="${EMP_ID != null }">
-	    <a href="/ar/page">AR화면</a>
+	    <a href="javascript:void(0);" onclick="openAR()">AR화면</a>
 	    </c:if>
 	    </div>
 	    
@@ -247,6 +247,12 @@ header {
 	toggleBtn.addEventListener('click', () => {
 		menu.classList.toggle('active');
 	})
+	
+	function openAR() {
+		var url = "/arcam";
+		var options = 'top=10, left=10, width=1000, height=400, status=no, menubar=no, toolbar=no';
+		window.open(url, 'AR', options);
+	}
 
 </script>
 </html>
