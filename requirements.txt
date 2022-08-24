@@ -1,5 +1,5 @@
 numpy
 opencv-python
-tkinter
+tk
 random
 pyzbar
